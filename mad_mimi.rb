@@ -27,13 +27,14 @@
 #   THE SOFTWARE.
 
 require 'rubygems' # So I can actually have other gems...
-require 'rest_client' # Stupid easy HTTP transactions, but I'd rather do them myself.
+require 'cgi'
+require 'net/http'
 require 'active_support' # I want to find a way to get away from this, yet I love the Hash.from_xml method!
 
 class MadMimi
   
   BASE_URL = "madmimi.com"
-  NEW_LISTS_URL = "/audience_lists"
+  NEW_LISTS_PATH = "/audience_lists"
 	AUDIENCE_MEMBERS_URL = "/audience_members"
 	AUDIENCE_LISTS_PATH = "/audience_lists/lists.xml?username=%username%&api_key=%api_key%";
 	MEMBERSHIPS_URL = "/audience_members/%email%/lists.xml?username=%username%&api_key=%api_key%";
@@ -52,7 +53,11 @@ class MadMimi
   def api_key
     @@api_settings[:api_key]
   end
-
+  
+  def default_opt
+    { 'username' => username, 'api_key' => api_key }
+  end
+  
   def prepare_url(url, email = nil)
     url.gsub!('%username%', username)
     url.gsub!('%api_key%', api_key)
@@ -62,10 +67,11 @@ class MadMimi
     url
   end
   
+  # Refactor this method asap
   def do_request(path, req_type = :get, options = {})
     resp = href = "";
     case req_type
-    when :get
+    when :get then
       begin
         http = Net::HTTP.new(BASE_URL, 80)
         http.start do |http|
@@ -77,24 +83,35 @@ class MadMimi
       rescue SocketError
         raise "Host unreachable."
       end
-    when :post
+    when :post then
+      http = Net::HTTP.new(BASE_URL, 80)
+      http.start do |http|
+        req = Net::HTTP::Post.new(path)
+        req.set_form_data(options)
+        response = http.request(req)
+        resp = response.body
+      end
     end
   end
     
   def lists
-    Hash.from_xml(do_request(prepare_url(AUDIENCE_LISTS_PATH)))
+    request = do_request(prepare_url(AUDIENCE_LISTS_PATH))
+    Hash.from_xml(request)
   end
   
   def memberships(email)
-    Hash.from_xml(RestClient.get(prepare_url(MEMBERSHIPS_URL, email)).body)
+    request = do_request(prepare_url(MEMBERSHIPS_PATH, email))
+    Hash.from_xml(request)
   end
   
   def new_list(list_name)
-    RestClient.post(NEW_LISTS_URL, { 'username' => username, 'api_key' => api_key, 'name' => list_name })
+    options = { 'name' => list_name }
+    do_request(prepare_url(NEW_LISTS_PATH), :post, options.merge(default_opt))
   end
   
   def delete_list(list_name)
-    RestClient.post("#{NEW_LISTS_URL}/#{list_name.gsub(' ', '%20')}", { 'username' => username, 'api_key' => api_key, '_method' => 'delete'})
+    options = { '_method' => 'delete' }
+    request = do_request(prepare_url(NEW_LISTS_PATH + "/" + CGI.escape(list_name.gsub(' ', '%20'))), :post, options.merge(default_opt)) # a bit hackish
   end
   
   def add_user
