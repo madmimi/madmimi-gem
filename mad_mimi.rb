@@ -32,10 +32,11 @@ require 'active_support' # I want to find a way to get away from this, yet I lov
 
 class MadMimi
   
-  NEW_LISTS_URL = "http://madmimi.com/audience_lists"
-	AUDIENCE_MEMBERS_URL = "http://madmimi.com/audience_members"
-	AUDIENCE_LISTS_URL = "http://madmimi.com/audience_lists/lists.xml?username=%username%&api_key=%api_key%";
-	MEMBERSHIPS_URL = "http://madmimi.com/audience_members/%email%/lists.xml?username=%username%&api_key=%api_key%";
+  BASE_URL = "madmimi.com"
+  NEW_LISTS_URL = "/audience_lists"
+	AUDIENCE_MEMBERS_URL = "/audience_members"
+	AUDIENCE_LISTS_PATH = "/audience_lists/lists.xml?username=%username%&api_key=%api_key%";
+	MEMBERSHIPS_URL = "/audience_members/%email%/lists.xml?username=%username%&api_key=%api_key%";
   
   @@api_settings = {}
 
@@ -60,9 +61,28 @@ class MadMimi
     end
     url
   end
+  
+  def do_request(path, req_type = :get, options = {})
+    resp = href = "";
+    case req_type
+    when :get
+      begin
+        http = Net::HTTP.new(BASE_URL, 80)
+        http.start do |http|
+          req = Net::HTTP::Get.new(path)
+          response = http.request(req)
+          resp = response.body
+        end
+        resp
+      rescue SocketError
+        raise "Host unreachable."
+      end
+    when :post
+    end
+  end
     
   def lists
-    Hash.from_xml(RestClient.get(prepare_url(AUDIENCE_LISTS_URL)).body)
+    Hash.from_xml(do_request(prepare_url(AUDIENCE_LISTS_PATH)))
   end
   
   def memberships(email)
