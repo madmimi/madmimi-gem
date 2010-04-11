@@ -36,8 +36,8 @@ class MadMimi
   BASE_URL = "madmimi.com"
   NEW_LISTS_PATH = "/audience_lists"
 	AUDIENCE_MEMBERS_PATH = "/audience_members"
-	AUDIENCE_LISTS_PATH = "/audience_lists/lists.xml?username=%username%&api_key=%api_key%"
-	MEMBERSHIPS_PATH = "/audience_members/%email%/lists.xml?username=%username%&api_key=%api_key%"
+	AUDIENCE_LISTS_PATH = "/audience_lists/lists.xml"
+	MEMBERSHIPS_PATH = "/audience_members/%email%/lists.xml"
 	SUPPRESSED_SINCE_PATH = "/audience_members/suppressed_since/%timestamp%.txt"
 	PROMOTIONS_PATH = "/promotions.xml"
 	MAILING_STATS_PATH = "/promotions/%promotion_id%/mailings/%mailing_id%.xml"
@@ -103,12 +103,12 @@ class MadMimi
   end
     
   def lists
-    request = do_request(prepare_url(AUDIENCE_LISTS_PATH))
+    request = do_request(AUDIENCE_LISTS_PATH, :get, default_opt)
     Hash.from_xml(request)
   end
   
   def memberships(email)
-    request = do_request(prepare_url(MEMBERSHIPS_PATH, email))
+    request = do_request((MEMBERSHIPS_PATH.gsub('%email%', email)), :get, default_opt)
     Hash.from_xml(request)
   end
   
@@ -138,7 +138,7 @@ class MadMimi
   end
   
   def suppressed_since(timestamp)
-    do_request((SUPPRESSED_SINCE_PATH.gsub('%timestamp%', timestamp)), :get)
+    do_request((SUPPRESSED_SINCE_PATH.gsub('%timestamp%', timestamp)), :get, default_opt)
   end
   
   def promotions
