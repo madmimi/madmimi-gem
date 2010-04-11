@@ -138,7 +138,7 @@ class MadMimi
     Hash.from_xml(request)
   end
   
-  def mailing_stats(promotion_id, mailing_id) # Still working on this one.
+  def mailing_stats(promotion_id, mailing_id)
     path = (MAILING_STATS_PATH.gsub('%promotion_id%', promotion_id).gsub('%mailing_id%', mailing_id))
     request = do_request(path, :get, default_opt)
     Hash.from_xml(request)
