@@ -26,7 +26,7 @@
 #   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 #   THE SOFTWARE.
 
-require 'rubygems' # So I can actually have other gems...
+require 'rubygems' # So I can actually have other gems... All I need to do is ditch activesupport, and I'm good to ditch this one
 require 'uri'
 require 'net/http'
 require 'active_support' # I want to find a way to get away from this, yet I love the Hash.from_xml method!
@@ -36,8 +36,11 @@ class MadMimi
   BASE_URL = "madmimi.com"
   NEW_LISTS_PATH = "/audience_lists"
 	AUDIENCE_MEMBERS_PATH = "/audience_members"
-	AUDIENCE_LISTS_PATH = "/audience_lists/lists.xml?username=%username%&api_key=%api_key%";
-	MEMBERSHIPS_PATH = "/audience_members/%email%/lists.xml?username=%username%&api_key=%api_key%";
+	AUDIENCE_LISTS_PATH = "/audience_lists/lists.xml?username=%username%&api_key=%api_key%"
+	MEMBERSHIPS_PATH = "/audience_members/%email%/lists.xml?username=%username%&api_key=%api_key%"
+	SUPPRESSED_SINCE_PATH = "/audience_members/suppressed_since/%timestamp%.txt"
+	PROMOTIONS_PATH = "/promotions.xml"
+	MAILING_STATS_PATH = "/promotions/%promotion_id%/mailings/%mailing_id%.xml"
   
   @@api_settings = {}
 
@@ -76,6 +79,7 @@ class MadMimi
         http = Net::HTTP.new(BASE_URL, 80)
         http.start do |http|
           req = Net::HTTP::Get.new(path)
+          req.set_form_data(options)
           response = http.request(req)
           resp = response.body
         end
@@ -97,18 +101,6 @@ class MadMimi
       end
     end
   end
-  
-  def build_csv(user, list_id = nil)
-    csv = ""
-    if list_id != nil
-      csv << "name,email,list\n"
-      csv << user[:name] + "," + user[:email] + "," + user[:list_id].to_i + "\n"
-    else
-      csv << "name,email\n"
-      csv << user[:name] + "," + user[:email] + "\n"
-    end
-    csv
-  end
     
   def lists
     request = do_request(prepare_url(AUDIENCE_LISTS_PATH))
@@ -127,17 +119,36 @@ class MadMimi
   
   def delete_list(list_name)
     options = { '_method' => 'delete' }
-    request = do_request(prepare_url(NEW_LISTS_PATH + "/" + URI.escape(list_name)), :post, options.merge(default_opt))
+    do_request(prepare_url(NEW_LISTS_PATH + "/" + URI.escape(list_name)), :post, options.merge(default_opt))
   end
   
-  def add_user(email, list_name = nil) # debugging
+  def csv_import(csv_string)
+    options = { 'csv_file' => csv_string }
+    do_request(AUDIENCE_MEMBERS_PATH, :post, options.merge(default_opt))
+  end
+  
+  def add_to_list(email, list_name)
     options = { 'email' => email }
     do_request(prepare_url(NEW_LISTS_PATH + "/" + URI.escape(list_name) + "/add"), :post, options.merge(default_opt))
   end
   
-  def remove_user(email, list_name = nil) # debugging
+  def remove_from_list(email, list_name)
     options = { 'email' => email }
     do_request(prepare_url(NEW_LISTS_PATH + "/" + URI.escape(list_name) + "/remove"), :post, options.merge(default_opt))
   end
   
+  def suppressed_since(timestamp)
+    do_request((SUPPRESSED_SINCE_PATH.gsub('%timestamp%', timestamp)), :get)
+  end
+  
+  def promotions
+    request = do_request(PROMOTIONS_PATH, :get, default_opt)
+    Hash.from_xml(request)
+  end
+  
+  def mailing_stats(promotion_id, mailing_id) # Still working on this one.
+    path = (MAILING_STATS_PATH.gsub('%promotion_id%', promotion_id).gsub('%mailing_id%', mailing_id))
+    request = do_request(path, :get, default_opt)
+    Hash.from_xml(request)
+  end
 end
