@@ -29,18 +29,19 @@
 require 'rubygems' # So I can actually have other gems... All I need to do is ditch activesupport, and I'm good to ditch this one
 require 'uri'
 require 'net/http'
+require 'net/https'
 require 'active_support' # I want to find a way to get away from this, yet I love the Hash.from_xml method!
 
 class MadMimi
   
   BASE_URL = "madmimi.com"
   NEW_LISTS_PATH = "/audience_lists"
-	AUDIENCE_MEMBERS_PATH = "/audience_members"
-	AUDIENCE_LISTS_PATH = "/audience_lists/lists.xml"
-	MEMBERSHIPS_PATH = "/audience_members/%email%/lists.xml"
-	SUPPRESSED_SINCE_PATH = "/audience_members/suppressed_since/%timestamp%.txt"
-	PROMOTIONS_PATH = "/promotions.xml"
-	MAILING_STATS_PATH = "/promotions/%promotion_id%/mailings/%mailing_id%.xml"
+  AUDIENCE_MEMBERS_PATH = "/audience_members"
+  AUDIENCE_LISTS_PATH = "/audience_lists/lists.xml"
+  MEMBERSHIPS_PATH = "/audience_members/%email%/lists.xml"
+  SUPPRESSED_SINCE_PATH = "/audience_members/suppressed_since/%timestamp%.txt"
+  PROMOTIONS_PATH = "/promotions.xml"
+  MAILING_STATS_PATH = "/promotions/%promotion_id%/mailings/%mailing_id%.xml"
   
   @@api_settings = {}
 
@@ -59,15 +60,6 @@ class MadMimi
   
   def default_opt
     { 'username' => username, 'api_key' => api_key }
-  end
-  
-  def prepare_url(url, email = nil)
-    url.gsub!('%username%', username)
-    url.gsub!('%api_key%', api_key)
-    if email != nil
-      url.gsub!('%email%', email)
-    end
-    url
   end
   
   # Refactor this method asap
