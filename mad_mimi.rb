@@ -63,7 +63,7 @@ class MadMimi
   end
   
   # Refactor this method asap
-  def do_request(path, req_type = :get, options = {})
+  def do_request(path, req_type = :get, options = {}, transactional = false)
     resp = href = "";
     case req_type
     when :get then
@@ -82,6 +82,10 @@ class MadMimi
     when :post then
       begin
         http = Net::HTTP.new(BASE_URL, 80)
+        if transactional == true
+          http.use_ssl = true
+          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        end
         http.start do |http|
           req = Net::HTTP::Post.new(path)
           req.set_form_data(options)
@@ -142,5 +146,14 @@ class MadMimi
     path = (MAILING_STATS_PATH.gsub('%promotion_id%', promotion_id).gsub('%mailing_id%', mailing_id))
     request = do_request(path, :get, default_opt)
     Hash.from_xml(request)
+  end
+  
+  def send_mail
+    opt = { 'recipients' => 'Nicholas Young <"nicholas@nicholaswyoung.com">',
+            'promotion_name' => 'Test Promotion',
+            'subject' => 'Testing',
+            'from' => 'nicholas@madmimi.com',
+            'body' => { 'name' => 'nicholas'}.to_yaml }
+    do_request('/mailer', :post, opt.merge(default_opt), true)
   end
 end
