@@ -112,12 +112,12 @@ class MadMimi
   
   def new_list(list_name)
     options = { 'name' => list_name }
-    do_request(prepare_url(NEW_LISTS_PATH), :post, options.merge(default_opt))
+    do_request(NEW_LISTS_PATH, :post, options.merge(default_opt))
   end
   
   def delete_list(list_name)
     options = { '_method' => 'delete' }
-    do_request(prepare_url(NEW_LISTS_PATH + "/" + URI.escape(list_name)), :post, options.merge(default_opt))
+    do_request(NEW_LISTS_PATH + "/" + URI.escape(list_name), :post, options.merge(default_opt))
   end
   
   def csv_import(csv_string)
