@@ -127,12 +127,12 @@ class MadMimi
   
   def add_to_list(email, list_name)
     options = { 'email' => email }
-    do_request(prepare_url(NEW_LISTS_PATH + "/" + URI.escape(list_name) + "/add"), :post, options.merge(default_opt))
+    do_request(NEW_LISTS_PATH + "/" + URI.escape(list_name) + "/add", :post, options.merge(default_opt))
   end
   
   def remove_from_list(email, list_name)
     options = { 'email' => email }
-    do_request(prepare_url(NEW_LISTS_PATH + "/" + URI.escape(list_name) + "/remove"), :post, options.merge(default_opt))
+    do_request(NEW_LISTS_PATH + "/" + URI.escape(list_name) + "/remove", :post, options.merge(default_opt))
   end
   
   def suppressed_since(timestamp)
