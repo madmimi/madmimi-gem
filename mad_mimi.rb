@@ -81,10 +81,12 @@ class MadMimi
       end
     when :post then
       begin
-        http = Net::HTTP.new(BASE_URL, 80)
         if transactional == true
+          http = Net::HTTP.new(BASE_URL, 443)
           http.use_ssl = true
           http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        else
+          http = Net::HTTP.new(BASE_URL, 80)
         end
         http.start do |http|
           req = Net::HTTP::Post.new(path)
@@ -148,12 +150,7 @@ class MadMimi
     Hash.from_xml(request)
   end
   
-  def send_mail
-    opt = { 'recipients' => 'Nicholas Young <"nicholas@nicholaswyoung.com">',
-            'promotion_name' => 'Test Promotion',
-            'subject' => 'Testing',
-            'from' => 'nicholas@madmimi.com',
-            'body' => { 'name' => 'nicholas'}.to_yaml }
+  def send_mail(opt)
     do_request('/mailer', :post, opt.merge(default_opt), true)
   end
 end
