@@ -42,6 +42,7 @@ class MadMimi
   SUPPRESSED_SINCE_PATH = "/audience_members/suppressed_since/%timestamp%.txt"
   PROMOTIONS_PATH = "/promotions.xml"
   MAILING_STATS_PATH = "/promotions/%promotion_id%/mailings/%mailing_id%.xml"
+  SEARCH_PATH = "/audience_members/search.xml"
   
   @@api_settings = {}
 
@@ -147,6 +148,12 @@ class MadMimi
   def mailing_stats(promotion_id, mailing_id)
     path = (MAILING_STATS_PATH.gsub('%promotion_id%', promotion_id).gsub('%mailing_id%', mailing_id))
     request = do_request(path, :get, default_opt)
+    Hash.from_xml(request)
+  end
+  
+  def audience_search(query_string, raw = false)
+    options = { 'raw' => raw, 'query' => query_string }
+    request = do_request(SEARCH_PATH, :get, options.merge(default_opt))
     Hash.from_xml(request)
   end
   
