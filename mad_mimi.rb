@@ -126,6 +126,27 @@ class MadMimi
     do_request(AUDIENCE_MEMBERS_PATH, :post, options.merge(default_opt))
   end
   
+  def build_csv(hash)
+    csv = ""
+    hash.keys.each do |key|
+      csv << "#{key},"
+    end
+    # strip out one char at the end
+    csv << "\n"
+    csv = csv[0..-1]
+    hash.values.each do |value|
+      csv << "#{value},"
+    end
+    csv = csv[0..-1]
+    csv << "\n"
+  end
+  
+  def add_user(options)
+    csv_data = build_csv(options)
+    opt = { 'csv_file' => csv_data }
+    do_request(AUDIENCE_MEMBERS_PATH, :post, opt.merge(default_opt))
+  end
+  
   def add_to_list(email, list_name)
     options = { 'email' => email }
     do_request(NEW_LISTS_PATH + "/" + URI.escape(list_name) + "/add", :post, options.merge(default_opt))
