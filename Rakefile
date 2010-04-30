@@ -5,8 +5,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "madmimi"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{Mad Mimi API wrapper for Ruby}
+    gem.description = %Q{Send emails, track statistics, and manage your subscriber base with ease.}
     gem.email = ""
     gem.homepage = "http://github.com/nicholaswyoung/madmimi"
     gem.authors = ["Nicholas Young"]
