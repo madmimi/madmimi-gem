@@ -8,7 +8,7 @@ begin
     gem.summary = %Q{Mad Mimi API wrapper for Ruby}
     gem.description = %Q{Send emails, track statistics, and manage your subscriber base with ease.}
     gem.email = "nicholas@madmimi.com"
-    gem.homepage = "http://github.com/nicholaswyoung/madmimi"
+    gem.homepage = "http://github.com/nicholaswyoung/mad_mimi_ruby"
     gem.authors = ["Nicholas Young"]
     gem.add_development_dependency "activesupport", ">= 2.3.5"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
