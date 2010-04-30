@@ -2,6 +2,6 @@ require 'helper'
 
 class TestMadmimi < Test::Unit::TestCase
   should "probably rename this file and start testing for real" do
-    flunk "hey buddy, you should probably rename this file and start testing for real"
+    flunk "Coming soon!"
   end
 end
