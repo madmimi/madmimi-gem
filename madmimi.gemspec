@@ -22,10 +22,12 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "lib/madmimi.rb",
+     "madmimi.gemspec",
+     "pkg/madmimi-1.0.0.gem",
      "test/helper.rb",
      "test/test_madmimi.rb"
   ]
-  s.homepage = %q{http://github.com/nicholaswyoung/madmimi}
+  s.homepage = %q{http://github.com/nicholaswyoung/mad_mimi_ruby}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.6}
