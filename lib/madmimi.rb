@@ -26,7 +26,6 @@
 #   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 #   THE SOFTWARE.
 
-require 'rubygems' # So I can actually have other gems... All I need to do is ditch activesupport, and I'm good to ditch this one
 require 'uri'
 require 'net/http'
 require 'net/https'
