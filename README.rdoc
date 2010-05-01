@@ -2,6 +2,10 @@
 
 The power of Mad Mimi in your Ruby application. Deliver emails, track statistics, and manage your subscriber base with ease.
 
+== Installation
+
+gem install madmimi - or if you prefer to live on the edge, just clone this repository and build it from scratch.
+
 == A brief tutorial
 
 Dependencies:
