@@ -177,7 +177,8 @@ class MadMimi
     Hash.from_xml(request)
   end
   
-  def send_mail(opt)
+  def send_mail(opt, yaml_body)
+    opt['body'] = yaml_body.to_yaml
     do_request('/mailer', :post, opt.merge(default_opt), true)
   end
 end
