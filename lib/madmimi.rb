@@ -29,11 +29,11 @@
 require 'uri'
 require 'net/http'
 require 'net/https'
-require 'active_support' # I want to find a way to get away from this, yet I love the Hash.from_xml method!
+require 'active_support'
 
 class MadMimi
   
-  BASE_URL = "api.madmimi.com"
+  BASE_URL = "madmimi.com"
   NEW_LISTS_PATH = "/audience_lists"
   AUDIENCE_MEMBERS_PATH = "/audience_members"
   AUDIENCE_LISTS_PATH = "/audience_lists/lists.xml"
@@ -180,5 +180,23 @@ class MadMimi
   def send_mail(opt, yaml_body)
     opt['body'] = yaml_body.to_yaml
     do_request('/mailer', :post, opt.merge(default_opt), true)
+  end
+  
+  def send_html(opt, html)
+    if html.include?('[[tracking_beacon]]') || html.include?('[[peek_image]]')
+      opt['raw_html'] = html
+      do_request('/mailer', :post, opt.merge(default_opt), true)
+    else
+      raise StandardError, "You'll need to include either the [[tracking_beacon]] or [[peek_image]] tag in your HTML before sending."
+    end
+  end
+  
+  def send_plaintext(opt, plaintext)
+    if plaintext.include?('[[unsubscribe]]')
+      opt['raw_plain_text'] = plaintext
+      do_request('/mailer', :post, opt.merge(default_opt), true)
+    else
+      raise StandardError, "You'll need to include either the [[unsubscribe]] tag in your text before sending."
+    end
   end
 end
