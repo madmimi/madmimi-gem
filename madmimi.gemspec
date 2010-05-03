@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Nicholas Young"]
-  s.date = %q{2010-05-01}
+  s.date = %q{2010-05-02}
   s.description = %q{Send emails, track statistics, and manage your subscriber base with ease.}
   s.email = %q{nicholas@madmimi.com}
   s.extra_rdoc_files = [
@@ -23,8 +23,10 @@ Gem::Specification.new do |s|
      "VERSION",
      "lib/madmimi.rb",
      "madmimi.gemspec",
+     "mimi_test.rb",
      "pkg/madmimi-1.0.0.gem",
      "pkg/madmimi-1.0.1.gem",
+     "pkg/madmimi-1.0.3.gem",
      "test/helper.rb",
      "test/test_madmimi.rb"
   ]
