@@ -33,7 +33,7 @@ require 'active_support'
 
 class MadMimi
   
-  BASE_URL = "madmimi.com"
+  BASE_URL = "api.madmimi.com"
   NEW_LISTS_PATH = "/audience_lists"
   AUDIENCE_MEMBERS_PATH = "/audience_members"
   AUDIENCE_LISTS_PATH = "/audience_lists/lists.xml"
