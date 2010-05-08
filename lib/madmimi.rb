@@ -179,13 +179,21 @@ class MadMimi
   
   def send_mail(opt, yaml_body)
     opt['body'] = yaml_body.to_yaml
-    do_request('/mailer', :post, opt.merge(default_opt), true)
+    if opt['list_name']
+      do_request('/mailer/to_list', :post, opt.merge(default_opt), true)
+    else
+      do_request('/mailer', :post, opt.merge(default_opt), true)
+    end
   end
   
   def send_html(opt, html)
     if html.include?('[[tracking_beacon]]') || html.include?('[[peek_image]]')
       opt['raw_html'] = html
-      do_request('/mailer', :post, opt.merge(default_opt), true)
+      if opt['list_name']
+        do_request('/mailer/to_list', :post, opt.merge(default_opt), true)
+      else
+        do_request('/mailer', :post, opt.merge(default_opt), true)
+      end
     else
       raise StandardError, "You'll need to include either the [[tracking_beacon]] or [[peek_image]] tag in your HTML before sending."
     end
@@ -194,7 +202,11 @@ class MadMimi
   def send_plaintext(opt, plaintext)
     if plaintext.include?('[[unsubscribe]]')
       opt['raw_plain_text'] = plaintext
-      do_request('/mailer', :post, opt.merge(default_opt), true)
+      if opt['list_name']
+        do_request('/mailer/to_list', :post, opt.merge(default_opt), true)
+      else
+        do_request('/mailer', :post, opt.merge(default_opt), true)
+      end
     else
       raise StandardError, "You'll need to include either the [[unsubscribe]] tag in your text before sending."
     end
