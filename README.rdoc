@@ -6,7 +6,7 @@ The power of Mad Mimi in your Ruby application. Deliver emails, track statistics
 
 gem install madmimi - or if you prefer to live on the edge, just clone this repository and build it from scratch.
 
-== A brief tutorial
+== Basic Usage
 
 Dependencies:
 active_support (I intend to remove this in the not too distant future, and build my own implementation.)
@@ -33,9 +33,9 @@ mimi.promotions -> returns a hash of your promotions
 
 mimi.mailing_stats('promotion_id', 'mailing_id') -> get stats on a specific mailing
 
-= Sending E-Mail (using the Mailer API)
+== Sending E-Mail (using the Mailer API)
 
-= Replacing keys in your email body text:
+=== Replacing keys in your email body text:
 
 options = { 'promotion_name' => 'Test Promotion', 'recipients' => 'Nicholas Young <nicholas@madmimi.com>', 'from' => 'MadMimi Ruby <rubygem@madmimi.com>', 'subject' => 'Test Subject' }
 
