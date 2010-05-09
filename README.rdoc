@@ -33,6 +33,16 @@ mimi.promotions -> returns a hash of your promotions
 
 mimi.mailing_stats('promotion_id', 'mailing_id') -> get stats on a specific mailing
 
+= Sending E-Mail (using the Mailer API)
+
+= Replacing keys in your email body text:
+
+options = { 'promotion_name' => 'Test Promotion', 'recipients' => 'Nicholas Young <nicholas@madmimi.com>', 'from' => 'MadMimi Ruby <rubygem@madmimi.com>', 'subject' => 'Test Subject' }
+
+yaml_body = { 'greeting' => 'Hello', 'name' => 'Nicholas' }
+
+mimi.send_mail(options, yaml_body)
+
 == Note on Patches/Pull Requests
  
 * Fork the project.
