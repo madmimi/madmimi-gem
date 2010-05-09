@@ -1,4 +1,4 @@
-#   Mad Mimi - v.0.0.1 the incredibly basic, and barely usable version, in my opinion. (too many stinkin' dependencies!)
+#   Mad Mimi for Ruby
 
 #   License
 
