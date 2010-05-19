@@ -66,12 +66,12 @@ class MadMimi
   
   def lists
     request = do_request(AUDIENCE_LISTS_PATH, :get)
-    Hash.from_xml(request)
+    Crack::XML.parse(request)
   end
   
   def memberships(email)
     request = do_request(MEMBERSHIPS_PATH.gsub('%email%', email), :get)
-    Hash.from_xml(request)
+    Crack::XML.parse(request)
   end
   
   def new_list(list_name)
@@ -105,18 +105,18 @@ class MadMimi
   
   def promotions
     request = do_request(PROMOTIONS_PATH, :get)
-    Hash.from_xml(request)
+    Crack::XML.parse(request)
   end
   
   def mailing_stats(promotion_id, mailing_id)
     path = MAILING_STATS_PATH.gsub('%promotion_id%', promotion_id).gsub('%mailing_id%', mailing_id)
     request = do_request(path, :get)
-    Hash.from_xml(request)
+    Crack::XML.parse(request)
   end
   
   def audience_search(query_string, raw = false)
     request = do_request(SEARCH_PATH, :get, :raw => raw, :query => query_string)
-    Hash.from_xml(request)
+    Crack::XML.parse(request)
   end
   
   def send_mail(opt, yaml_body)
