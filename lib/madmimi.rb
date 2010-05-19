@@ -163,7 +163,7 @@ class MadMimi
   def do_request(path, req_type = :get, options = {}, transactional = false)
     options = options.merge(default_opt)
     form_data = options.inject({}) { |m, (k, v)| m[k.to_s] = v; m }
-    resp = href = "";
+    resp = href = ""
     case req_type
     when :get then
       begin
