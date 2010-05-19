@@ -59,6 +59,27 @@ plain_text = "Plain text email contents [[unsubscribe]]"
 
 mimi.send_plaintext(options, plain_text)
 
+=== Return values
+
+In most cases, a return value of a single space indicates success.
+
+On success, #send_mail, #send_html, and #send_plaintext return String with a numeric mailing_id. This mailing_id can be used to look up stats with #mailing_stats.
+
+Errors or issues preventing operation completing return a human-readable String.
+
+Therefore, if the return value is not a space, or is not a numeric String value, then
+there is probably an error or uncompleted operation.
+
+=== Specific options keys
+
+'raw_html': Must include at least one of the [[tracking_beacon]] or [[peek_image]] tags.
+
+'promotion_name': If a promotion doesn't exist under the given name, it will be created.
+If it exists and you specify raw_html, the promotion body will be replaced.
+
+'list_name': For all of the #send methods, if 'list_name' is provided, the recipients
+will be those for an already-existing "audience."
+
 == Note on Patches/Pull Requests
  
 * Fork the project.
