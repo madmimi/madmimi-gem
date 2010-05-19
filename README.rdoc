@@ -90,6 +90,9 @@ will be those for an already-existing "audience."
   (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
 
+== Contributors
+tuker
+
 == Copyright
 
 Copyright (c) 2010 Nicholas Young. See LICENSE for details.
