@@ -200,10 +200,17 @@ class MadMimi
   end
     
   def build_csv(hash)
-    buffer = ''
-    CSV.generate_row(hash.keys, hash.keys.size, buffer)
-    CSV.generate_row(hash.values, hash.values.size, buffer)
-    buffer
+    if CSV.respond_to?(:generate_row)   # before Ruby 1.9
+      buffer = ''
+      CSV.generate_row(hash.keys, hash.keys.size, buffer)
+      CSV.generate_row(hash.values, hash.values.size, buffer)
+      buffer
+    else                               # Ruby 1.9 and after
+      CSV.generate do |csv|
+        csv << hash.keys
+        csv << hash.values
+      end
+    end
   end
 
 end
