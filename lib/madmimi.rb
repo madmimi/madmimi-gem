@@ -29,41 +29,139 @@
 require 'uri'
 require 'net/http'
 require 'net/https'
-require 'active_support'
+require 'crack'
+require 'csv'
 
 class MadMimi
   
-  BASE_URL = "api.madmimi.com"
-  NEW_LISTS_PATH = "/audience_lists"
-  AUDIENCE_MEMBERS_PATH = "/audience_members"
-  AUDIENCE_LISTS_PATH = "/audience_lists/lists.xml"
-  MEMBERSHIPS_PATH = "/audience_members/%email%/lists.xml"
-  SUPPRESSED_SINCE_PATH = "/audience_members/suppressed_since/%timestamp%.txt"
-  PROMOTIONS_PATH = "/promotions.xml"
-  MAILING_STATS_PATH = "/promotions/%promotion_id%/mailings/%mailing_id%.xml"
-  SEARCH_PATH = "/audience_members/search.xml"
+  class MadMimiError < StandardError; end
   
-  @@api_settings = {}
+  BASE_URL = 'api.madmimi.com'
+  NEW_LISTS_PATH = '/audience_lists'
+  AUDIENCE_MEMBERS_PATH = '/audience_members'
+  AUDIENCE_LISTS_PATH = '/audience_lists/lists.xml'
+  MEMBERSHIPS_PATH = '/audience_members/%email%/lists.xml'
+  SUPPRESSED_SINCE_PATH = '/audience_members/suppressed_since/%timestamp%.txt'
+  PROMOTIONS_PATH = '/promotions.xml'
+  MAILING_STATS_PATH = '/promotions/%promotion_id%/mailings/%mailing_id%.xml'
+  SEARCH_PATH = '/audience_members/search.xml'
+  MAILER_PATH = '/mailer'
+  MAILER_TO_LIST_PATH = '/mailer/to_list'
 
   def initialize(username, api_key)
-    @@api_settings[:username] = username
-    @@api_settings[:api_key]  = api_key
+    @api_settings = { :username => username, :api_key => api_key }
   end
   
   def username
-    @@api_settings[:username]
+    @api_settings[:username]
   end
   
   def api_key
-    @@api_settings[:api_key]
+    @api_settings[:api_key]
   end
   
   def default_opt
-    { 'username' => username, 'api_key' => api_key }
+    { :username => username, :api_key => api_key }
   end
+  
+  def lists
+    request = do_request(AUDIENCE_LISTS_PATH, :get)
+    Hash.from_xml(request)
+  end
+  
+  def memberships(email)
+    request = do_request(MEMBERSHIPS_PATH.gsub('%email%', email), :get)
+    Hash.from_xml(request)
+  end
+  
+  def new_list(list_name)
+    do_request(NEW_LISTS_PATH, :post, :name => list_name)
+  end
+  
+  def delete_list(list_name)
+    do_request("#{NEW_LISTS_PATH}/#{URI.escape(list_name)}", :post, :'_method' => 'delete')
+  end
+  
+  def csv_import(csv_string)
+    do_request(AUDIENCE_MEMBERS_PATH, :post, :csv_file => csv_string)
+  end
+  
+  def add_user(options)
+    csv_data = build_csv(options)
+    do_request(AUDIENCE_MEMBERS_PATH, :post, :csv_file => csv_data)
+  end
+  
+  def add_to_list(email, list_name)
+    do_request("#{NEW_LISTS_PATH}/#{URI.escape(list_name)}/add", :post, :email => email)
+  end
+  
+  def remove_from_list(email, list_name)
+    do_request("#{NEW_LISTS_PATH}/#{URI.escape(list_name)}/remove", :post, :email => email)
+  end
+  
+  def suppressed_since(timestamp)
+    do_request(SUPPRESSED_SINCE_PATH.gsub('%timestamp%', timestamp), :get)
+  end
+  
+  def promotions
+    request = do_request(PROMOTIONS_PATH, :get)
+    Hash.from_xml(request)
+  end
+  
+  def mailing_stats(promotion_id, mailing_id)
+    path = MAILING_STATS_PATH.gsub('%promotion_id%', promotion_id).gsub('%mailing_id%', mailing_id)
+    request = do_request(path, :get)
+    Hash.from_xml(request)
+  end
+  
+  def audience_search(query_string, raw = false)
+    request = do_request(SEARCH_PATH, :get, :raw => raw, :query => query_string)
+    Hash.from_xml(request)
+  end
+  
+  def send_mail(opt, yaml_body)
+    options = opt.dup
+    options[:body] = yaml_body.to_yaml
+    if options[:list_name]
+      do_request(MAILER_TO_LIST_PATH, :post, options, true)
+    else
+      do_request(MAILER_PATH, :post, options, true)
+    end
+  end
+  
+  def send_html(opt, html)
+    options = opt.dup
+    if html.include?('[[tracking_beacon]]') || html.include?('[[peek_image]]')
+      options[:raw_html] = html
+      if options[:list_name]
+        do_request(MAILER_TO_LIST_PATH, :post, options, true)
+      else
+        do_request(MAILER_PATH, :post, options, true)
+      end
+    else
+      raise MadMimiError, "You'll need to include either the [[tracking_beacon]] or [[peek_image]] tag in your HTML before sending."
+    end
+  end
+  
+  def send_plaintext(opt, plaintext)
+    options = opt.dup
+    if plaintext.include?('[[unsubscribe]]')
+      options[:raw_plain_text] = plaintext
+      if options[:list_name]
+        do_request(MAILER_TO_LIST_PATH, :post, options, true)
+      else
+        do_request(MAILER_PATH, :post, options, true)
+      end
+    else
+      raise MadMimiError, "You'll need to include either the [[unsubscribe]] tag in your text before sending."
+    end
+  end
+  
+  private
   
   # Refactor this method asap
   def do_request(path, req_type = :get, options = {}, transactional = false)
+    options = options.merge(default_opt)
     resp = href = "";
     case req_type
     when :get then
@@ -73,7 +171,7 @@ class MadMimi
           req = Net::HTTP::Get.new(path)
           req.set_form_data(options)
           response = http.request(req)
-          resp = response.body
+          resp = response.body.strip
         end
         resp
       rescue SocketError
@@ -92,7 +190,7 @@ class MadMimi
           req = Net::HTTP::Post.new(path)
           req.set_form_data(options)
           response = http.request(req)
-          resp = response.body
+          resp = response.body.strip
         end
       rescue SocketError
         raise "Host unreachable."
@@ -100,115 +198,11 @@ class MadMimi
     end
   end
     
-  def lists
-    request = do_request(AUDIENCE_LISTS_PATH, :get, default_opt)
-    Hash.from_xml(request)
-  end
-  
-  def memberships(email)
-    request = do_request((MEMBERSHIPS_PATH.gsub('%email%', email)), :get, default_opt)
-    Hash.from_xml(request)
-  end
-  
-  def new_list(list_name)
-    options = { 'name' => list_name }
-    do_request(NEW_LISTS_PATH, :post, options.merge(default_opt))
-  end
-  
-  def delete_list(list_name)
-    options = { '_method' => 'delete' }
-    do_request(NEW_LISTS_PATH + "/" + URI.escape(list_name), :post, options.merge(default_opt))
-  end
-  
-  def csv_import(csv_string)
-    options = { 'csv_file' => csv_string }
-    do_request(AUDIENCE_MEMBERS_PATH, :post, options.merge(default_opt))
-  end
-  
   def build_csv(hash)
-    csv = ""
-    hash.keys.each do |key|
-      csv << "#{key},"
-    end
-    # strip out one char at the end
-    csv << "\n"
-    csv = csv[0..-1]
-    hash.values.each do |value|
-      csv << "#{value},"
-    end
-    csv = csv[0..-1]
-    csv << "\n"
+    buffer = ''
+    CSV.generate_row(hash.keys, hash.keys.size, buffer)
+    CSV.generate_row(hash.values, hash.values.size, buffer)
+    buffer
   end
-  
-  def add_user(options)
-    csv_data = build_csv(options)
-    opt = { 'csv_file' => csv_data }
-    do_request(AUDIENCE_MEMBERS_PATH, :post, opt.merge(default_opt))
-  end
-  
-  def add_to_list(email, list_name)
-    options = { 'email' => email }
-    do_request(NEW_LISTS_PATH + "/" + URI.escape(list_name) + "/add", :post, options.merge(default_opt))
-  end
-  
-  def remove_from_list(email, list_name)
-    options = { 'email' => email }
-    do_request(NEW_LISTS_PATH + "/" + URI.escape(list_name) + "/remove", :post, options.merge(default_opt))
-  end
-  
-  def suppressed_since(timestamp)
-    do_request((SUPPRESSED_SINCE_PATH.gsub('%timestamp%', timestamp)), :get, default_opt)
-  end
-  
-  def promotions
-    request = do_request(PROMOTIONS_PATH, :get, default_opt)
-    Hash.from_xml(request)
-  end
-  
-  def mailing_stats(promotion_id, mailing_id)
-    path = (MAILING_STATS_PATH.gsub('%promotion_id%', promotion_id).gsub('%mailing_id%', mailing_id))
-    request = do_request(path, :get, default_opt)
-    Hash.from_xml(request)
-  end
-  
-  def audience_search(query_string, raw = false)
-    options = { 'raw' => raw, 'query' => query_string }
-    request = do_request(SEARCH_PATH, :get, options.merge(default_opt))
-    Hash.from_xml(request)
-  end
-  
-  def send_mail(opt, yaml_body)
-    opt['body'] = yaml_body.to_yaml
-    if opt['list_name']
-      do_request('/mailer/to_list', :post, opt.merge(default_opt), true)
-    else
-      do_request('/mailer', :post, opt.merge(default_opt), true)
-    end
-  end
-  
-  def send_html(opt, html)
-    if html.include?('[[tracking_beacon]]') || html.include?('[[peek_image]]')
-      opt['raw_html'] = html
-      if opt['list_name']
-        do_request('/mailer/to_list', :post, opt.merge(default_opt), true)
-      else
-        do_request('/mailer', :post, opt.merge(default_opt), true)
-      end
-    else
-      raise StandardError, "You'll need to include either the [[tracking_beacon]] or [[peek_image]] tag in your HTML before sending."
-    end
-  end
-  
-  def send_plaintext(opt, plaintext)
-    if plaintext.include?('[[unsubscribe]]')
-      opt['raw_plain_text'] = plaintext
-      if opt['list_name']
-        do_request('/mailer/to_list', :post, opt.merge(default_opt), true)
-      else
-        do_request('/mailer', :post, opt.merge(default_opt), true)
-      end
-    else
-      raise StandardError, "You'll need to include either the [[unsubscribe]] tag in your text before sending."
-    end
-  end
+
 end
