@@ -162,6 +162,7 @@ class MadMimi
   # Refactor this method asap
   def do_request(path, req_type = :get, options = {}, transactional = false)
     options = options.merge(default_opt)
+    form_data = options.inject({}) { |m, (k, v)| m[k.to_s] = v; m }
     resp = href = "";
     case req_type
     when :get then
@@ -169,7 +170,7 @@ class MadMimi
         http = Net::HTTP.new(BASE_URL, 80)
         http.start do |http|
           req = Net::HTTP::Get.new(path)
-          req.set_form_data(options)
+          req.set_form_data(form_data)
           response = http.request(req)
           resp = response.body.strip
         end
@@ -188,7 +189,7 @@ class MadMimi
         end
         http.start do |http|
           req = Net::HTTP::Post.new(path)
-          req.set_form_data(options)
+          req.set_form_data(form_data)
           response = http.request(req)
           resp = response.body.strip
         end
