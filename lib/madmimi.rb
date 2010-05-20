@@ -134,6 +134,9 @@ class MadMimi
     if html.include?('[[tracking_beacon]]') || html.include?('[[peek_image]]')
       options[:raw_html] = html
       if options[:list_name]
+        if !html.include?('[[unsubscribe]]')
+          raise MadMimiError, "When specifying list_name, include the [[unsubscribe]] tag in your HTML before sending."
+        end
         do_request(MAILER_TO_LIST_PATH, :post, options, true)
       else
         do_request(MAILER_PATH, :post, options, true)
