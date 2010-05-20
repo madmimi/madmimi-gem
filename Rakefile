@@ -10,7 +10,7 @@ begin
     gem.email = "nicholas@madmimi.com"
     gem.homepage = "http://github.com/madmimi/madmimi-gem"
     gem.authors = ["Nicholas Young"]
-    gem.add_development_dependency "crack", ">= 2.3.5"
+    gem.add_development_dependency "crack", ">= 0.1.7"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
