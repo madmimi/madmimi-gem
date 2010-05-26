@@ -33,9 +33,9 @@ require 'crack'
 require 'csv'
 
 class MadMimi
-  
+
   class MadMimiError < StandardError; end
-  
+
   BASE_URL = 'api.madmimi.com'
   NEW_LISTS_PATH = '/audience_lists'
   AUDIENCE_MEMBERS_PATH = '/audience_members'
@@ -51,117 +51,117 @@ class MadMimi
   def initialize(username, api_key)
     @api_settings = { :username => username, :api_key => api_key }
   end
-  
+
   def username
     @api_settings[:username]
   end
-  
+
   def api_key
     @api_settings[:api_key]
   end
-  
+
   def default_opt
     { :username => username, :api_key => api_key }
   end
-  
+
   def lists
     request = do_request(AUDIENCE_LISTS_PATH, :get)
     Crack::XML.parse(request)
   end
-  
+
   def memberships(email)
     request = do_request(MEMBERSHIPS_PATH.gsub('%email%', email), :get)
     Crack::XML.parse(request)
   end
-  
+
   def new_list(list_name)
     do_request(NEW_LISTS_PATH, :post, :name => list_name)
   end
-  
+
   def delete_list(list_name)
     do_request("#{NEW_LISTS_PATH}/#{URI.escape(list_name)}", :post, :'_method' => 'delete')
   end
-  
+
   def csv_import(csv_string)
     do_request(AUDIENCE_MEMBERS_PATH, :post, :csv_file => csv_string)
   end
-  
+
   def add_user(options)
     csv_data = build_csv(options)
     do_request(AUDIENCE_MEMBERS_PATH, :post, :csv_file => csv_data)
   end
-  
+
   def add_to_list(email, list_name)
     do_request("#{NEW_LISTS_PATH}/#{URI.escape(list_name)}/add", :post, :email => email)
   end
-  
+
   def remove_from_list(email, list_name)
     do_request("#{NEW_LISTS_PATH}/#{URI.escape(list_name)}/remove", :post, :email => email)
   end
-  
+
   def suppressed_since(timestamp)
     do_request(SUPPRESSED_SINCE_PATH.gsub('%timestamp%', timestamp), :get)
   end
-  
+
   def promotions
     request = do_request(PROMOTIONS_PATH, :get)
     Crack::XML.parse(request)
   end
-  
+
   def mailing_stats(promotion_id, mailing_id)
     path = MAILING_STATS_PATH.gsub('%promotion_id%', promotion_id).gsub('%mailing_id%', mailing_id)
     request = do_request(path, :get)
     Crack::XML.parse(request)
   end
-  
+
   def audience_search(query_string, raw = false)
     request = do_request(SEARCH_PATH, :get, :raw => raw, :query => query_string)
     Crack::XML.parse(request)
   end
-  
+
   def send_mail(opt, yaml_body)
     options = opt.dup
     options[:body] = yaml_body.to_yaml
-    if options[:list_name]
+    if !options[:list_name].nil?
       do_request(MAILER_TO_LIST_PATH, :post, options, true)
     else
       do_request(MAILER_PATH, :post, options, true)
     end
   end
-  
+
   def send_html(opt, html)
     options = opt.dup
     if html.include?('[[tracking_beacon]]') || html.include?('[[peek_image]]')
       options[:raw_html] = html
-      if options[:list_name]
-        unless html.include?('[[unsubscribe]]')
-          raise MadMimiError, "When specifying list_name, include the [[unsubscribe]] tag in your HTML before sending."
+      if !options[:list_name].nil?
+        unless html.include?('[[unsubscribe]]') || html.include?('[[opt_out]]')
+          raise MadMimiError, "When specifying list_name, include the [[unsubscribe]] or [[opt_out]] macro in your HTML before sending."
         end
         do_request(MAILER_TO_LIST_PATH, :post, options, true)
       else
         do_request(MAILER_PATH, :post, options, true)
       end
     else
-      raise MadMimiError, "You'll need to include either the [[tracking_beacon]] or [[peek_image]] tag in your HTML before sending."
+      raise MadMimiError, "You'll need to include either the [[tracking_beacon]] or [[peek_image]] macro in your HTML before sending."
     end
   end
-  
+
   def send_plaintext(opt, plaintext)
     options = opt.dup
-    if plaintext.include?('[[unsubscribe]]')
-      options[:raw_plain_text] = plaintext
-      if options[:list_name]
+    options[:raw_plain_text] = plaintext
+    if !options[:list_name].nil?
+      if plaintext.include?('[[unsubscribe]]') || plaintext.include?('[[opt_out]]')
         do_request(MAILER_TO_LIST_PATH, :post, options, true)
       else
-        do_request(MAILER_PATH, :post, options, true)
+        raise MadMimiError, "You'll need to include either the [[unsubscribe]] or [[opt_out]] macro in your text before sending."
       end
     else
-      raise MadMimiError, "You'll need to include either the [[unsubscribe]] tag in your text before sending."
+      do_request(MAILER_PATH, :post, options, true)
     end
   end
-  
+
   private
-  
+
   # Refactor this method asap
   def do_request(path, req_type = :get, options = {}, transactional = false)
     options = options.merge(default_opt)
@@ -201,7 +201,7 @@ class MadMimi
       end
     end
   end
-    
+
   def build_csv(hash)
     if CSV.respond_to?(:generate_row)   # before Ruby 1.9
       buffer = ''
