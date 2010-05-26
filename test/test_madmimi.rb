@@ -3,10 +3,11 @@ require 'helper'
 class TestMadmimi < Test::Unit::TestCase
   context "A API call" do
     setup do
-      @mimi = MadMimi.new('test-user-email', 'test-api-key')
+      @mimi = MadMimi.new('email@example.com', 'testapikey')
+      # Stub here?
     end
-    should "return nothing when creating a new list" do
-      assert_equal "", @mimi.new_list('New Test List')
+    should "retrieve a list of promotions" do
+      stub_get("/promotions.xml", "promotions.xml")
     end
   end
 end

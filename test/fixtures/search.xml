@@ -1,0 +1,38 @@
+<audience>
+  <member suppressed="false">
+    <first_name></first_name>
+    <last_name></last_name>
+    <email>nicholas@madmimi.com</email>
+    <created_at>Mon May 24 13:19:59 -0400 2010</created_at>
+    <city></city>
+    <phone></phone>
+    <company></company>
+    <title></title>
+    <address></address>
+    <state></state>
+    <zip></zip>
+    <country></country>
+    <confirmed></confirmed>
+    <music></music>
+    <lists>
+    </lists>
+  </member>
+  <member suppressed="false">
+    <first_name></first_name>
+    <last_name></last_name>
+    <email>nicholas@nicholaswyoung.com</email>
+    <created_at>Mon May 24 20:17:30 -0400 2010</created_at>
+    <city></city>
+    <phone></phone>
+    <company></company>
+    <title></title>
+    <address></address>
+    <state></state>
+    <zip></zip>
+    <country></country>
+    <confirmed></confirmed>
+    <music></music>
+    <lists>
+    </lists>
+  </member>
+</audience>

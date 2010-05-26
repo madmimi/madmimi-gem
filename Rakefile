@@ -10,7 +10,8 @@ begin
     gem.email = "nicholas@madmimi.com"
     gem.homepage = "http://github.com/madmimi/madmimi-gem"
     gem.authors = ["Nicholas Young", "Marc Heiligers"]
-    gem.add_development_dependency "crack", ">= 0.1.7"
+    gem.add_development_dependency "crack", "0.1.7"
+    gem.add_development_dependency "fakeweb", "1.2.8"
     gem.add_development_dependency "shoulda", "2.10.3"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
