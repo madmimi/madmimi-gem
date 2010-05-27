@@ -17,5 +17,11 @@ class TestMadmimi < Test::Unit::TestCase
       response = @mimi.lists
       flunk "Doesn't return any lists." unless response.kind_of?(Hash)
     end
+    
+    should "retrieve a hash of users found with the search term nicholas" do
+      stub_get('/audience_members/search.xml?query=nicholas', 'search.xml')
+      response = @mimi.audience_search('nicholas')
+      flunk "No users found" unless response.kind_of?(Hash)
+    end
   end
 end

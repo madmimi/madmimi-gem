@@ -215,5 +215,4 @@ class MadMimi
       end
     end
   end
-
 end
