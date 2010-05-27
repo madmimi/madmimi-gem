@@ -16,12 +16,23 @@ def fixture_file(filename)
   File.read(file_path)
 end
 
-def madmimi_url(url)
-  url =~ /^http/ ? url : "http://api.madmimi.com#{url}"
+def madmimi_url(url, https = false)
+  if https = false
+    url =~ /^http/ ? url : "http://api.madmimi.com#{url}"
+  else
+    url =~ /^https/ ? url : "https://api.madmimi.com#{url}"
+  end
 end
 
 def stub_get(url, filename, status = nil)
   options = { :body => fixture_file(filename) }
   options.merge!({ :status => status }) unless status.nil?
   FakeWeb.register_uri(:get, madmimi_url(url), options)
+end
+
+# In the process of tweaking this. - Nicholas
+def stub_post(url, filename = nil, status = nil)
+  options = { :body => "" }
+  options.merge!({ :status => status }) unless status.nil?
+  FakeWeb.register_url(:get, madmimi_url(url), options)
 end
