@@ -48,8 +48,8 @@ class MadMimi
   MAILER_PATH = '/mailer'
   MAILER_TO_LIST_PATH = '/mailer/to_list'
 
-  def initialize(username, api_key)
-    @api_settings = { :username => username, :api_key => api_key }
+  def initialize(username, api_key, response_type = :hash)
+    @api_settings = { :username => username, :api_key => api_key, :response_type => response_type }
   end
 
   def username
@@ -62,6 +62,10 @@ class MadMimi
 
   def default_opt
     { :username => username, :api_key => api_key }
+  end
+  
+  def response_type
+    @@api_settings[:response_type]
   end
 
   def lists
@@ -175,9 +179,8 @@ class MadMimi
           req = Net::HTTP::Get.new(path)
           req.set_form_data(form_data)
           response = http.request(req)
-          resp = response.body.strip
         end
-        resp
+        response
       rescue SocketError
         raise "Host unreachable."
       end
@@ -194,8 +197,8 @@ class MadMimi
           req = Net::HTTP::Post.new(path)
           req.set_form_data(form_data)
           response = http.request(req)
-          resp = response.body.strip
         end
+        response
       rescue SocketError
         raise "Host unreachable."
       end
