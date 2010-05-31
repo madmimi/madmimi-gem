@@ -57,7 +57,7 @@ Gem::Specification.new do |s|
     end
   else
     s.add_dependency(%q<crack>, ["= 0.1.7"])
-    s.add_dependency(%q<jewelder>, ["= 1.4.0"])
+    s.add_dependency(%q<jeweler>, ["= 1.4.0"])
     s.add_dependency(%q<fakeweb>, ["= 1.2.8"])
     s.add_dependency(%q<shoulda>, ["= 2.10.3"])
   end
