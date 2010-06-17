@@ -128,6 +128,14 @@ class MadMimi
       do_request(MAILER_PATH, :post, options, true)
     end
   end
+  
+  # Not the most elegant, but it works for now. :)
+  def add_users_to_list(list_name, arr)
+    arr.each do |a|
+      a[:add_list] = list_name
+      add_user(a)
+    end
+  end
 
   def send_html(opt, html)
     options = opt.dup
