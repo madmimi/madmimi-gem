@@ -42,6 +42,7 @@ class MadMimi
   AUDIENCE_LISTS_PATH = '/audience_lists/lists.xml'
   MEMBERSHIPS_PATH = '/audience_members/%email%/lists.xml'
   SUPPRESSED_SINCE_PATH = '/audience_members/suppressed_since/%timestamp%.txt'
+  SUPPRESS_USER_PATH = ' /audience_members/%email%/suppress_email'
   PROMOTIONS_PATH = '/promotions.xml'
   MAILING_STATS_PATH = '/promotions/%promotion_id%/mailings/%mailing_id%.xml'
   SEARCH_PATH = '/audience_members/search.xml'
@@ -101,6 +102,10 @@ class MadMimi
 
   def suppressed_since(timestamp)
     do_request(SUPPRESSED_SINCE_PATH.gsub('%timestamp%', timestamp), :get)
+  end
+  
+  def suppress(email)
+    do_request(SUPPRESS_USER_PATH.gsub('%email%', email), :post)
   end
 
   def promotions
