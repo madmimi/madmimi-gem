@@ -104,7 +104,7 @@ class MadMimi
     do_request(SUPPRESSED_SINCE_PATH.gsub('%timestamp%', timestamp), :get)
   end
   
-  def suppress(email)
+  def suppress_email(email)
     do_request(SUPPRESS_USER_PATH.gsub('%email%', email), :post)
   end
 
