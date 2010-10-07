@@ -43,10 +43,12 @@ class MadMimi
   MEMBERSHIPS_PATH = '/audience_members/%email%/lists.xml'
   SUPPRESSED_SINCE_PATH = '/audience_members/suppressed_since/%timestamp%.txt'
   SUPPRESS_USER_PATH = ' /audience_members/%email%/suppress_email'
+  IS_SUPPRESSED_PATH = '/audience_members/%email%/is_suppressed'
   PROMOTIONS_PATH = '/promotions.xml'
   MAILING_STATS_PATH = '/promotions/%promotion_id%/mailings/%mailing_id%.xml'
   SEARCH_PATH = '/audience_members/search.xml'
   MAILER_PATH = '/mailer'
+  TRANSACTIONAL_MAILING_STATUS_PATH = '/mailers/status/%transaction_id%'
   MAILER_TO_LIST_PATH = '/mailer/to_list'
 
   def initialize(username, api_key)
@@ -108,6 +110,16 @@ class MadMimi
     do_request(SUPPRESS_USER_PATH.gsub('%email%', email), :post)
   end
 
+  def is_suppressed(email)
+    response = do_request(IS_SUPPRESSED_PATH.gsub('%email%', email), :get)
+    case response
+    when 'true'
+      true
+    when 'false', /does not exist/
+      false
+    end
+  end
+
   def promotions
     request = do_request(PROMOTIONS_PATH, :get)
     Crack::XML.parse(request)
@@ -132,6 +144,10 @@ class MadMimi
     else
       do_request(MAILER_PATH, :post, options, true)
     end
+  end
+
+  def transactional_mailing_status(transaction_id)
+    do_request(TRANSACTIONAL_MAILING_STATUS_PATH.gsub('%transaction_id%', transaction_id.to_s), :get)
   end
   
   # Not the most elegant, but it works for now. :)
