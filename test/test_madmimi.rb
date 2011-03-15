@@ -1,7 +1,7 @@
 require 'helper'
 
 class TestMadmimi < Test::Unit::TestCase
-  context "A API call" do
+  context "An API call" do
     setup do
       @mimi = MadMimi.new('email@example.com', 'testapikey')
     end
@@ -22,6 +22,12 @@ class TestMadmimi < Test::Unit::TestCase
       stub_get('/audience_members/search.xml?query=nicholas', 'search.xml')
       response = @mimi.audience_search('nicholas')
       flunk "No users found." unless response.kind_of?(Hash) || !response.empty?
+    end
+    
+    should "get a transactional mailing status" do
+      stub_get('/mailers/status/1234', 'status.txt')
+      response = @mimi.status(1234)
+      assert_equal "sent", response
     end
   end
 end

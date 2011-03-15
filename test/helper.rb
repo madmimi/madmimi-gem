@@ -34,5 +34,5 @@ end
 def stub_post(url, filename = nil, status = nil)
   options = { :body => "" }
   options.merge!({ :status => status }) unless status.nil?
-  FakeWeb.register_url(:get, madmimi_url(url), options)
+  FakeWeb.register_url(:post, madmimi_url(url), options)
 end
