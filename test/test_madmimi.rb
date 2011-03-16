@@ -7,25 +7,25 @@ class TestMadmimi < Test::Unit::TestCase
     end
     
     should "retrieve a hash of promotions" do
-      stub_get('/promotions.xml', 'promotions.xml')
+      stub_get('/promotions.xml', { :filename => 'promotions.xml'})
       response = @mimi.promotions
       flunk "I couldn't find any promotions." unless response.kind_of?(Hash) || !response.empty?
     end
     
     should "retrieve a hash of lists" do
-      stub_get('/audience_lists/lists.xml', 'lists.xml')
+      stub_get('/audience_lists/lists.xml', { :filename => 'lists.xml'})
       response = @mimi.lists
       flunk "Doesn't return any lists." unless response.kind_of?(Hash) || !response.empty?
     end
     
     should "retrieve a hash of users found with the search term nicholas" do
-      stub_get('/audience_members/search.xml?query=nicholas', 'search.xml')
+      stub_get('/audience_members/search.xml?query=nicholas', { :filename => 'search.xml'})
       response = @mimi.audience_search('nicholas')
       flunk "No users found." unless response.kind_of?(Hash) || !response.empty?
     end
     
     should "get a transactional mailing status" do
-      stub_get('/mailers/status/1234', 'status.txt')
+      stub_get('/mailers/status/1234', { :https => true, :body => "sent" })
       response = @mimi.status(1234)
       assert_equal "sent", response
     end
