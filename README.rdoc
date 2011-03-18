@@ -59,6 +59,10 @@ plain_text = "Plain text email contents [[unsubscribe]]"
 
 mimi.send_plaintext(options, plain_text)
 
+=== Getting the status of a transactional mailing
+
+mimi.status('transaction_id') -> get the status on a specific transactional mailing
+
 === Return values
 
 In most cases, a return value of a single space indicates success.
@@ -92,6 +96,7 @@ will be those for an already-existing "audience."
 
 == Contributors
 tuker
+marcheiligers
 
 == Copyright
 
