@@ -15,6 +15,8 @@ mimi = MadMimi.new('emailaddress', 'api_key')
 
 mimi.lists -> get all of your Mad Mimi lists returned as a hash
 
+=== Audience Members and Lists
+
 mimi.memberships('email') -> returns a hash of the lists that specific email address is subscribed to
 
 mimi.new_list('New list name') -> make a new list
@@ -29,7 +31,11 @@ mimi.remove_from_list('dave@example.com', 'Test List') -> remove this email addr
 
 mimi.suppressed_since('unix timestamp') -> get a TXT of all addresses that were suppressed since this timestamp
 
+=== Promotions
+
 mimi.promotions -> returns a hash of your promotions
+
+mimi.save_promotion('promotion_name', 'raw_html', 'plain_text') -> saves a promotion (creates the promotion if it does not exist)
 
 mimi.mailing_stats('promotion_id', 'mailing_id') -> get stats on a specific mailing
 
@@ -83,6 +89,8 @@ If it exists and you specify raw_html, the promotion body will be replaced.
 
 'list_name': For all of the #send methods, if 'list_name' is provided, the recipients
 will be those for an already-existing "audience."
+
+'to_all': Set to true to send a promotion, plain_text or raw_html to all your audience members
 
 == Note on Patches/Pull Requests
  

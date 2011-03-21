@@ -37,17 +37,23 @@ class MadMimi
   class MadMimiError < StandardError; end
 
   BASE_URL = 'api.madmimi.com'
+  
   NEW_LISTS_PATH = '/audience_lists'
   AUDIENCE_MEMBERS_PATH = '/audience_members'
   AUDIENCE_LISTS_PATH = '/audience_lists/lists.xml'
   MEMBERSHIPS_PATH = '/audience_members/%email%/lists.xml'
   SUPPRESSED_SINCE_PATH = '/audience_members/suppressed_since/%timestamp%.txt'
   SUPPRESS_USER_PATH = ' /audience_members/%email%/suppress_email'
-  PROMOTIONS_PATH = '/promotions.xml'
-  MAILING_STATS_PATH = '/promotions/%promotion_id%/mailings/%mailing_id%.xml'
   SEARCH_PATH = '/audience_members/search.xml'
+  
+  PROMOTIONS_PATH = '/promotions.xml'
+  PROMOTION_SAVE_PATH = '/promotions/save'
+  
+  MAILING_STATS_PATH = '/promotions/%promotion_id%/mailings/%mailing_id%.xml'
+  
   MAILER_PATH = '/mailer'
   MAILER_TO_LIST_PATH = '/mailer/to_list'
+  MAILER_TO_ALL_PATH = '/mailer/to_all'
   MAILER_STATUS_PATH = '/mailers/status'
 
   def initialize(username, api_key)
@@ -66,6 +72,7 @@ class MadMimi
     { :username => username, :api_key => api_key }
   end
 
+  # Audience and lists
   def lists
     request = do_request(AUDIENCE_LISTS_PATH, :get)
     Crack::XML.parse(request)
@@ -109,32 +116,11 @@ class MadMimi
     do_request(SUPPRESS_USER_PATH.gsub('%email%', email), :post)
   end
 
-  def promotions
-    request = do_request(PROMOTIONS_PATH, :get)
-    Crack::XML.parse(request)
-  end
-
-  def mailing_stats(promotion_id, mailing_id)
-    path = MAILING_STATS_PATH.gsub('%promotion_id%', promotion_id).gsub('%mailing_id%', mailing_id)
-    request = do_request(path, :get)
-    Crack::XML.parse(request)
-  end
-
   def audience_search(query_string, raw = false)
     request = do_request(SEARCH_PATH, :get, :raw => raw, :query => query_string)
     Crack::XML.parse(request)
   end
 
-  def send_mail(opt, yaml_body)
-    options = opt.dup
-    options[:body] = yaml_body.to_yaml
-    if !options[:list_name].nil?
-      do_request(MAILER_TO_LIST_PATH, :post, options, true)
-    else
-      do_request(MAILER_PATH, :post, options, true)
-    end
-  end
-  
   # Not the most elegant, but it works for now. :)
   def add_users_to_list(list_name, arr)
     arr.each do |a|
@@ -142,16 +128,57 @@ class MadMimi
       add_user(a)
     end
   end
+  
+  # Promotions
+  def promotions
+    request = do_request(PROMOTIONS_PATH, :get)
+    Crack::XML.parse(request)
+  end
+  
+  def save_promotion(promotion_name, raw_html, plain_text = nil)
+    options = { :promotion_name => promotion_name }
+    
+    unless raw_html.nil?
+      check_for_tracking_beacon raw_html
+      check_for_opt_out raw_html
+      options[:raw_html] = raw_html
+    end
+    
+    unless plain_text.nil?
+      check_for_opt_out plain_text
+      options[:raw_plain_text] = plain_text
+    end
+    
+    do_request PROMOTION_SAVE_PATH, :post, options
+  end
+  
+  # Stats
+  def mailing_stats(promotion_id, mailing_id)
+    path = MAILING_STATS_PATH.gsub('%promotion_id%', promotion_id).gsub('%mailing_id%', mailing_id)
+    request = do_request(path, :get)
+    Crack::XML.parse(request)
+  end
 
+  # Mailer API
+  def send_mail(opt, yaml_body)
+    options = opt.dup
+    options[:body] = yaml_body.to_yaml
+    if !options[:list_name].nil? || options[:to_all]
+      do_request(options[:to_all] ? MAILER_TO_ALL_PATH : MAILER_TO_LIST_PATH, :post, options, true)
+    else
+      do_request(MAILER_PATH, :post, options, true)
+    end
+  end
+  
   def send_html(opt, html)
     options = opt.dup
     if html.include?('[[tracking_beacon]]') || html.include?('[[peek_image]]')
       options[:raw_html] = html
-      if !options[:list_name].nil?
+      if !options[:list_name].nil? || options[:to_all]
         unless html.include?('[[unsubscribe]]') || html.include?('[[opt_out]]')
           raise MadMimiError, "When specifying list_name, include the [[unsubscribe]] or [[opt_out]] macro in your HTML before sending."
         end
-        do_request(MAILER_TO_LIST_PATH, :post, options, true)
+        do_request(options[:to_all] ? MAILER_TO_ALL_PATH : MAILER_TO_LIST_PATH, :post, options, true)
       else
         do_request(MAILER_PATH, :post, options, true)
       end
@@ -163,9 +190,9 @@ class MadMimi
   def send_plaintext(opt, plaintext)
     options = opt.dup
     options[:raw_plain_text] = plaintext
-    if !options[:list_name].nil?
+    if !options[:list_name].nil? || options[:to_all]
       if plaintext.include?('[[unsubscribe]]') || plaintext.include?('[[opt_out]]')
-        do_request(MAILER_TO_LIST_PATH, :post, options, true)
+        do_request(options[:to_all] ? MAILER_TO_ALL_PATH : MAILER_TO_LIST_PATH, :post, options, true)
       else
         raise MadMimiError, "You'll need to include either the [[unsubscribe]] or [[opt_out]] macro in your text before sending."
       end
@@ -234,5 +261,19 @@ class MadMimi
         csv << hash.values
       end
     end
+  end
+  
+  def check_for_tracking_beacon(content)
+    unless content.include?('[[tracking_beacon]]') || content.include?('[[peek_image]]')
+      raise MadMimiError, "You'll need to include either the [[tracking_beacon]] or [[peek_image]] macro in your HTML before sending."
+    end
+    true
+  end
+  
+  def check_for_opt_out(content)
+    unless content.include?('[[opt_out]]') || content.include?('[[unsubscribe]]')
+      raise MadMimiError, "When specifying list_name or sending to all, include the [[unsubscribe]] or [[opt_out]] macro in your HTML before sending."
+    end
+    true
   end
 end

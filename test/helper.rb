@@ -33,7 +33,7 @@ def stub_get(url, options = {})
   FakeWeb.register_uri(:get, madmimi_url(url, https), options)
 end
 
-def stub_post(url, filename = nil, status = nil)
+def stub_post(url, options)
   https = options.delete(:https)
   
   filename = options.delete(:filename)
