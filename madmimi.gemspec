@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.authors = ["Nicholas Young", "Marc Heiligers"]
   s.date = %q{2013-01-15}
   s.description = %q{Send emails, track statistics, and manage your subscriber base with ease.}
-  s.email = %q{developers@madmimi.com}
+  s.email = %q{nicholas@madmimi.com}
   s.extra_rdoc_files = [
     "LICENSE",
     "README.rdoc"
@@ -31,15 +31,10 @@ Gem::Specification.new do |s|
   ]
   s.homepage = %q{http://github.com/madmimi/madmimi-gem}
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.7}
+  s.rubygems_version = %q{1.4.2}
   s.summary = %q{Mad Mimi API wrapper for Ruby}
-  s.test_files = [
-    "test/helper.rb",
-    "test/test_madmimi.rb"
-  ]
 
   if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
