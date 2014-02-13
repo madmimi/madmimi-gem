@@ -1,3 +1,4 @@
 pkg
 *.gem
-tags
+.rvmrc
+.ruby-*
