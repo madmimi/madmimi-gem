@@ -108,8 +108,11 @@ class MadMimi
     do_request("#{NEW_LISTS_PATH}/#{URI.escape(list_name)}/remove", :post, :email => email)
   end
 
-  def suppressed_since(timestamp)
-    do_request(SUPPRESSED_SINCE_PATH.gsub('%timestamp%', timestamp), :get)
+  def suppressed_since(timestamp, show_suppression_reason = false)
+    options = {
+      :show_suppression_reason => show_suppression_reason
+    }
+    do_request(SUPPRESSED_SINCE_PATH.gsub('%timestamp%', timestamp), :get, options)
   end
   
   def suppress_email(email)
