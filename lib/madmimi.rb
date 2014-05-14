@@ -14,7 +14,7 @@
 #   The above copyright notice and this permission notice shall be included in
 #   all copies or substantial portions of the Software.
 
-#   Except as contained in this notice, the name(s) of the above copyright holder(s) 
+#   Except as contained in this notice, the name(s) of the above copyright holder(s)
 #   shall not be used in advertising or otherwise to promote the sale, use or other
 #   dealings in this Software without prior written authorization.
 
@@ -37,7 +37,7 @@ class MadMimi
   class MadMimiError < StandardError; end
 
   BASE_URL = 'api.madmimi.com'
-  
+
   NEW_LISTS_PATH = '/audience_lists'
   AUDIENCE_MEMBERS_PATH = '/audience_members'
   AUDIENCE_LISTS_PATH = '/audience_lists/lists.xml'
@@ -45,12 +45,12 @@ class MadMimi
   SUPPRESSED_SINCE_PATH = '/audience_members/suppressed_since/%timestamp%.txt'
   SUPPRESS_USER_PATH = ' /audience_members/%email%/suppress_email'
   SEARCH_PATH = '/audience_members/search.xml'
-  
+
   PROMOTIONS_PATH = '/promotions.xml'
   PROMOTION_SAVE_PATH = '/promotions/save'
-  
+
   MAILING_STATS_PATH = '/promotions/%promotion_id%/mailings/%mailing_id%.xml'
-  
+
   MAILER_PATH = '/mailer'
   MAILER_TO_LIST_PATH = '/mailer/to_list'
   MAILER_TO_ALL_PATH = '/mailer/to_all'
@@ -100,8 +100,8 @@ class MadMimi
     do_request(AUDIENCE_MEMBERS_PATH, :post, :csv_file => csv_data)
   end
 
-  def add_to_list(email, list_name)
-    do_request("#{NEW_LISTS_PATH}/#{URI.escape(list_name)}/add", :post, :email => email)
+  def add_to_list(email, list_name, options={})
+    do_request("#{NEW_LISTS_PATH}/#{URI.escape(list_name)}/add", :post, options.merge(:email => email))
   end
 
   def remove_from_list(email, list_name)
@@ -111,7 +111,7 @@ class MadMimi
   def suppressed_since(timestamp)
     do_request(SUPPRESSED_SINCE_PATH.gsub('%timestamp%', timestamp), :get)
   end
-  
+
   def suppress_email(email)
     do_request(SUPPRESS_USER_PATH.gsub('%email%', email), :post)
   end
@@ -128,30 +128,30 @@ class MadMimi
       add_user(a)
     end
   end
-  
+
   # Promotions
   def promotions
     request = do_request(PROMOTIONS_PATH, :get)
     Crack::XML.parse(request)
   end
-  
+
   def save_promotion(promotion_name, raw_html, plain_text = nil)
     options = { :promotion_name => promotion_name }
-    
+
     unless raw_html.nil?
       check_for_tracking_beacon raw_html
       check_for_opt_out raw_html
       options[:raw_html] = raw_html
     end
-    
+
     unless plain_text.nil?
       check_for_opt_out plain_text
       options[:raw_plain_text] = plain_text
     end
-    
+
     do_request PROMOTION_SAVE_PATH, :post, options
   end
-  
+
   # Stats
   def mailing_stats(promotion_id, mailing_id)
     path = MAILING_STATS_PATH.gsub('%promotion_id%', promotion_id).gsub('%mailing_id%', mailing_id)
@@ -169,7 +169,7 @@ class MadMimi
       do_request(MAILER_PATH, :post, options, true)
     end
   end
-  
+
   def send_html(opt, html)
     options = opt.dup
     if html.include?('[[tracking_beacon]]') || html.include?('[[peek_image]]')
@@ -200,7 +200,7 @@ class MadMimi
       do_request(MAILER_PATH, :post, options, true)
     end
   end
-  
+
   def status(transaction_id)
     do_request "#{MAILER_STATUS_PATH}/#{transaction_id}", :get, {}, true
   end
@@ -212,7 +212,7 @@ class MadMimi
     options = options.merge(default_opt)
     form_data = options.inject({}) { |m, (k, v)| m[k.to_s] = v; m }
     resp = href = ""
-    
+
     if transactional == true
       http = Net::HTTP.new(BASE_URL, 443)
       http.use_ssl = true
@@ -221,9 +221,9 @@ class MadMimi
     else
       http = Net::HTTP.new(BASE_URL, 80)
     end
-    
+
     case req_type
-    
+
     when :get then
       begin
         http.start do |http|
@@ -263,14 +263,14 @@ class MadMimi
       end
     end
   end
-  
+
   def check_for_tracking_beacon(content)
     unless content.include?('[[tracking_beacon]]') || content.include?('[[peek_image]]')
       raise MadMimiError, "You'll need to include either the [[tracking_beacon]] or [[peek_image]] macro in your HTML before sending."
     end
     true
   end
-  
+
   def check_for_opt_out(content)
     unless content.include?('[[opt_out]]') || content.include?('[[unsubscribe]]')
       raise MadMimiError, "When specifying list_name or sending to all, include the [[unsubscribe]] or [[opt_out]] macro in your HTML before sending."
