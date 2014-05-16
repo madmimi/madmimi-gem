@@ -26,6 +26,7 @@
 #   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 #   THE SOFTWARE.
 
+require 'active_support/core_ext/string'
 require 'uri'
 require 'net/http'
 require 'net/https'
@@ -56,8 +57,12 @@ class MadMimi
   MAILER_TO_ALL_PATH = '/mailer/to_all'
   MAILER_STATUS_PATH = '/mailers/status'
 
-  def initialize(username, api_key)
-    @api_settings = { :username => username, :api_key => api_key }
+  def initialize(username, api_key, options = {})
+    @api_settings = options.merge({ :username => username, :api_key => api_key })
+  end
+
+  def raise_exceptions?
+    @api_settings[:raise_exceptions]
   end
 
   def username
@@ -211,7 +216,6 @@ class MadMimi
   def do_request(path, req_type = :get, options = {}, transactional = false)
     options = options.merge(default_opt)
     form_data = options.inject({}) { |m, (k, v)| m[k.to_s] = v; m }
-    resp = href = ""
 
     if transactional == true
       http = Net::HTTP.new(BASE_URL, 443)
@@ -222,32 +226,16 @@ class MadMimi
       http = Net::HTTP.new(BASE_URL, 80)
     end
 
-    case req_type
-
-    when :get then
-      begin
-        http.start do |http|
-          req = Net::HTTP::Get.new(path)
-          req.set_form_data(form_data)
-          response = http.request(req)
-          resp = response.body.strip
-        end
-        resp
-      rescue SocketError
-        raise "Host unreachable."
-      end
-    when :post then
-      begin
-        http.start do |http|
-          req = Net::HTTP::Post.new(path)
-          req.set_form_data(form_data)
-          response = http.request(req)
-          resp = response.body.strip
-        end
-      rescue SocketError
-        raise "Host unreachable."
-      end
+    response = http.start do |http|
+      # Either Net::HTTP::Get or Net::HTTP::Post
+      http_class = Net::HTTP.const_get(req_type.to_s.titleize)
+      req = http_class.new(path)
+      req.set_form_data(form_data)
+      http.request(req)
     end
+
+    response.value if raise_exceptions?
+    response.body.strip
   end
 
   def build_csv(hash)
