@@ -33,6 +33,11 @@ You can pass +raise_exceptions+ to the initializer, if you wish to receive excep
  mimi.csv_import("name,email\ndave,dave@example.com\n") # import from a csv string
 
  mimi.add_to_list('dave@example.com', 'Test List') # add this email address to a specific list
+ mimi.add_to_list('dave@example.com', 'Test List', { 
+   :first_name   => 'Dave',
+   :last_name    => 'Example',
+   :custom_field => 'Custom value'
+ }) # add additional data with this email
 
  mimi.remove_from_list('dave@example.com', 'Test List') # remove this email address from a specific list
 
