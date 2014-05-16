@@ -17,7 +17,7 @@ or if you prefer to live on the edge, just clone this repository and build it fr
  mimi = MadMimi.new('emailaddress', 'api_key')
  mimi.lists # get all of your Mad Mimi lists returned as a hash
 
-You can pass +{ :raise_exceptions => true }+ to the initializer, if you wish to receive exceptions for failing requests:
+You can pass +raise_exceptions+ to the initializer, if you wish to receive exceptions for failing requests:
 
  MadMimi.new('emailaddress', 'api_key', { :raise_exceptions => true })
  mimi.lists # will raise an Exception if request fails
