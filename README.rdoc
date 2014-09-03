@@ -22,6 +22,10 @@ You can pass +raise_exceptions+ to the initializer, if you wish to receive excep
  MadMimi.new('emailaddress', 'api_key', { :raise_exceptions => true })
  mimi.lists # will raise an Exception if request fails
 
+You can pass +ssl_verify_mode+ to the initializer, if you wish to change SSL verify mode used for requests:
+
+ MadMimi.new('emailaddress', 'api_key', { :ssl_verify_mode => OpenSSL::SSL::VERIFY_PEER })
+
 === Audience Members and Lists
 
  mimi.memberships('email') # returns a hash of the lists that specific email address is subscribed to

@@ -63,7 +63,12 @@ class MadMimi
   MAILER_STATUS_PATH = '/mailers/status'
 
   def initialize(username, api_key, options = {})
-    @api_settings = options.merge({ :username => username, :api_key => api_key })
+    @api_settings = options.reverse_merge({
+      :ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE
+    }).merge({
+      :username        => username,
+      :api_key         => api_key
+    })
   end
 
   def raise_exceptions?
@@ -76,6 +81,10 @@ class MadMimi
 
   def api_key
     @api_settings[:api_key]
+  end
+
+  def ssl_verify_mode
+    @api_settings[:ssl_verify_mode]
   end
 
   def default_opt
@@ -257,7 +266,7 @@ class MadMimi
       http = Net::HTTP.new(BASE_URL, 443)
       http.use_ssl = true
       http.ssl_version = "SSLv3" if http.respond_to?(:ssl_version)
-      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      http.verify_mode = ssl_verify_mode
     else
       http = Net::HTTP.new(BASE_URL, 80)
     end
