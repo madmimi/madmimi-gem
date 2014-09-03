@@ -44,8 +44,8 @@ class MadMimi
   AUDIENCE_LISTS_PATH = '/audience_lists/lists.xml'
   MEMBERSHIPS_PATH = '/audience_members/%email%/lists.xml'
   SUPPRESSED_SINCE_PATH = '/audience_members/suppressed_since/%timestamp%.txt'
-  SUPPRESS_USER_PATH = '/audience_members/%email%/suppress_email'
-  UNSUPPRESS_USER_PATH = '/audience_members/%email%/unsuppress_email'
+  SUPPRESS_USER_PATH = '/suppressed_audience_members/'
+  UNSUPPRESS_USER_PATH = '/suppressed_audience_members/%email%'
   IS_SUPPRESSED_PATH = '/audience_members/%email%/is_suppressed'
   UPDATE_USER_EMAIL_PATH = '/audience_members/%email%/update_email'
   GET_AUDIENCE_MEMBERS_PATH = '/audience_members.xml'
@@ -154,11 +154,19 @@ class MadMimi
   end
 
   def suppress_email(email)
-    do_request(SUPPRESS_USER_PATH.gsub('%email%', URI.escape(email)), :post)
+    return '' if suppressed?(email)
+
+    process_json_response do
+      do_request(SUPPRESS_USER_PATH, :post, :id => email)
+    end
   end
 
   def unsuppress_email(email)
-    do_request(UNSUPPRESS_USER_PATH.gsub('%email%', URI.escape(email)), :post)
+    return '' unless suppressed?(email)
+
+    process_json_response do
+      do_request(UNSUPPRESS_USER_PATH.gsub('%email%', URI.escape(email)), :post, :'_method' => 'delete')
+    end
   end
 
   def suppressed?(email)
@@ -309,5 +317,10 @@ class MadMimi
       raise MadMimiError, "When specifying list_name or sending to all, include the [[unsubscribe]] or [[opt_out]] macro in your HTML before sending."
     end
     true
+  end
+
+  def process_json_response
+    json_response = JSON.parse(yield)
+    json_response["success"] ? '' : json_response["error"]
   end
 end
