@@ -27,11 +27,13 @@
 #   THE SOFTWARE.
 
 require 'active_support/core_ext/string'
+require 'active_support/core_ext/hash'
 require 'uri'
 require 'net/http'
 require 'net/https'
 require 'crack'
 require 'csv'
+require 'json'
 
 class MadMimi
 
@@ -320,7 +322,12 @@ class MadMimi
   end
 
   def process_json_response
-    json_response = JSON.parse(yield)
-    json_response["success"] ? '' : json_response["error"]
+    response = yield
+    begin
+      json_response = JSON.parse(yield)
+      json_response["success"] ? '' : json_response["error"]
+    rescue JSON::ParserError
+      response
+    end
   end
 end
