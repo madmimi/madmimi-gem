@@ -33,13 +33,22 @@ You can pass +raise_exceptions+ to the initializer, if you wish to receive excep
  mimi.csv_import("name,email\ndave,dave@example.com\n") # import from a csv string
 
  mimi.add_to_list('dave@example.com', 'Test List') # add this email address to a specific list
- mimi.add_to_list('dave@example.com', 'Test List', { 
+ mimi.add_to_list('dave@example.com', 'Test List', {
    :first_name   => 'Dave',
    :last_name    => 'Example',
    :custom_field => 'Custom value'
  }) # add additional data with this email
 
  mimi.remove_from_list('dave@example.com', 'Test List') # remove this email address from a specific list
+
+ mimi.remove_from_all_lists('dave@example.com') # remove this email address from all lists
+
+ # this API call needs advanced permissions (manually requested)
+ mimi.update_email('dave@example.com', 'john@example.com') # changes email address for user 'dave@example.com' to 'john@example.com'
+
+ mimi.members # get all audience members
+
+ mimi.list_members('Test List') # get audience members in specific list
 
  mimi.suppressed_since('unix timestamp') # get a TXT of all addresses that were suppressed since this timestamp
 

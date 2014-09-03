@@ -45,6 +45,9 @@ class MadMimi
   MEMBERSHIPS_PATH = '/audience_members/%email%/lists.xml'
   SUPPRESSED_SINCE_PATH = '/audience_members/suppressed_since/%timestamp%.txt'
   SUPPRESS_USER_PATH = ' /audience_members/%email%/suppress_email'
+  UPDATE_USER_EMAIL_PATH = '/audience_members/%email%/update_email'
+  GET_AUDIENCE_MEMBERS_PATH = '/audience_members.xml'
+  GET_AUDIENCE_LIST_MEMBERS_PATH = '/audience_lists/%list%/members.xml'
   SEARCH_PATH = '/audience_members/search.xml'
 
   PROMOTIONS_PATH = '/promotions.xml'
@@ -80,7 +83,11 @@ class MadMimi
   # Audience and lists
   def lists
     request = do_request(AUDIENCE_LISTS_PATH, :get)
-    Crack::XML.parse(request)
+    Crack::XML.parse(request).tap do |response|
+      if response['lists'] && response['lists']['list'].is_a?(Hash)
+        response['lists']['list'] = [ response['lists']['list'] ]
+      end
+    end
   end
 
   def memberships(email)
@@ -111,6 +118,24 @@ class MadMimi
 
   def remove_from_list(email, list_name)
     do_request("#{NEW_LISTS_PATH}/#{URI.escape(list_name)}/remove", :post, :email => email)
+  end
+
+  def remove_from_all_lists(email)
+    do_request("#{NEW_LISTS_PATH}/remove_all", :post, :email => email)
+  end
+
+  def update_email(existing_email, new_email)
+    do_request(UPDATE_USER_EMAIL_PATH.gsub('%email%', existing_email), :post, :email => existing_email, :new_email => new_email)
+  end
+
+  def members
+    request = do_request(GET_AUDIENCE_MEMBERS_PATH, :get)
+    Crack::XML.parse(request)
+  end
+
+  def list_members(list_name)
+    request = do_request(GET_AUDIENCE_LIST_MEMBERS_PATH.gsub('%list%', list_name), :get)
+    Crack::XML.parse(request)
   end
 
   def suppressed_since(timestamp)
