@@ -50,6 +50,12 @@ You can pass +raise_exceptions+ to the initializer, if you wish to receive excep
 
  mimi.list_members('Test List') # get audience members in specific list
 
+ mimi.suppressed?('dave@example.com') # check if audience member is suppressed
+
+ mimi.suppress_email('dave@example.com') # move email to suppressed list
+
+ mimi.unsuppress_email('dave@example.com') # move email from suppressed list
+
  mimi.suppressed_since('unix timestamp') # get a TXT of all addresses that were suppressed since this timestamp
 
 === Promotions
