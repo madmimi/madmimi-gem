@@ -147,7 +147,7 @@ class MadMimi
   end
 
   def list_members(list_name)
-    request = do_request(GET_AUDIENCE_LIST_MEMBERS_PATH.gsub('%list%', list_name), :get)
+    request = do_request(GET_AUDIENCE_LIST_MEMBERS_PATH.gsub('%list%', URI.escape(list_name)), :get)
     Crack::XML.parse(request)
   end
 
