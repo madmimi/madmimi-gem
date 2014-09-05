@@ -36,6 +36,12 @@ You can pass +ssl_verify_mode+ to the initializer, if you wish to change SSL ver
 
  mimi.csv_import("name,email\ndave,dave@example.com\n") # import from a csv string
 
+ mimi.add_user({ :email => 'dave@example.com', :first_name => 'Dave' }) # add new audience member
+
+ mimi.add_users([
+        
+ ])
+
  mimi.add_to_list('dave@example.com', 'Test List') # add this email address to a specific list
  mimi.add_to_list('dave@example.com', 'Test List', {
    :first_name   => 'Dave',

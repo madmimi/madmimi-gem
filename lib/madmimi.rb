@@ -120,10 +120,11 @@ class MadMimi
     do_request(AUDIENCE_MEMBERS_PATH, :post, :csv_file => csv_string)
   end
 
-  def add_user(options)
-    csv_data = build_csv(options)
+  def add_user(hash_or_array)
+    csv_data = build_csv(hash_or_array)
     do_request(AUDIENCE_MEMBERS_PATH, :post, :csv_file => csv_data)
   end
+  alias :add_users :add_user
 
   def add_to_list(email, list_name, options={})
     do_request("#{NEW_LISTS_PATH}/#{URI.escape(list_name)}/add", :post, options.merge(:email => email))
@@ -295,16 +296,24 @@ class MadMimi
     response.body.strip
   end
 
-  def build_csv(hash)
+  def build_csv(hash_or_array)
+    hashes  = Array.wrap(hash_or_array)
+    columns = hashes.map(&:keys).flatten.uniq
+
     if CSV.respond_to?(:generate_row)   # before Ruby 1.9
       buffer = ''
-      CSV.generate_row(hash.keys, hash.keys.size, buffer)
-      CSV.generate_row(hash.values, hash.values.size, buffer)
+      CSV.generate_row(columns, columns.size, buffer)
+      hashes.each do |hash|
+        values = columns.map{ |c| hash[c] }
+        CSV.generate_row(values, values.size, buffer)
+      end
       buffer
     else                               # Ruby 1.9 and after
       CSV.generate do |csv|
-        csv << hash.keys
-        csv << hash.values
+        csv << columns
+        hashes.each do |hash|
+          csv << columns.map{ |c| hash[c] }
+        end
       end
     end
   end
