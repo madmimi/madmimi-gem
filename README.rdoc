@@ -39,8 +39,10 @@ You can pass +ssl_verify_mode+ to the initializer, if you wish to change SSL ver
  mimi.add_user({ :email => 'dave@example.com', :first_name => 'Dave' }) # add new audience member
 
  mimi.add_users([
-        
- ])
+   { :email => 'dave@example.com',   :first_name => 'Dave' },
+   { :email => 'custom@example.com', :custom_field_1 => 'Dummy value' },
+   { :email => 'smith@example.com',  :last_name => 'Smith' }
+ ]) # add audience members in bulk
 
  mimi.add_to_list('dave@example.com', 'Test List') # add this email address to a specific list
  mimi.add_to_list('dave@example.com', 'Test List', {
