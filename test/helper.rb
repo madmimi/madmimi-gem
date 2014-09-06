@@ -24,20 +24,23 @@ def madmimi_url(url, https = false)
   end
 end
 
-def stub_get(url, options = {})
+def stub_request(method, url, options = {})
   https = options.delete(:https)
-  
+
   filename = options.delete(:filename)
   options = { :body => fixture_file(filename) } if filename
-  
-  FakeWeb.register_uri(:get, madmimi_url(url, https), options)
+
+  FakeWeb.register_uri(method, madmimi_url(url, https), options)
 end
 
-def stub_post(url, options)
-  https = options.delete(:https)
-  
-  filename = options.delete(:filename)
-  options = { :body => fixture_file(filename) } if filename
-  
-  FakeWeb.register_uri(:post, madmimi_url(url, https), options)
+def stub_get(url, options={})
+  stub_request(:get, url, options)
+end
+
+def stub_post(url, options={})
+  stub_request(:post, url, options)
+end
+
+def stub_delete(url, options={})
+  stub_request(:delete, url, options)
 end

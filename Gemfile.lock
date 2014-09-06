@@ -27,6 +27,9 @@ GEM
       oauth2
     hashie (2.0.5)
     highline (1.6.20)
+    httparty (0.13.1)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.6.9)
     jeweler (2.0.1)
       builder
@@ -74,5 +77,6 @@ PLATFORMS
 DEPENDENCIES
   crack (> 0.1.7)
   fakeweb (> 1.2)
+  httparty (>= 0.13.1)
   jeweler (> 1.4)
   shoulda (> 2.10)

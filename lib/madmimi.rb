@@ -29,52 +29,44 @@
 require 'active_support/core_ext/string'
 require 'active_support/core_ext/hash'
 require 'uri'
-require 'net/http'
-require 'net/https'
-require 'crack'
+require 'rubygems'
+require 'httparty'
 require 'csv'
-require 'json'
+require 'yaml'
+require 'crack'
 
 class MadMimi
 
   class MadMimiError < StandardError; end
 
-  BASE_URL = 'api.madmimi.com'
+  include HTTParty
 
-  NEW_LISTS_PATH = '/audience_lists'
-  AUDIENCE_MEMBERS_PATH = '/audience_members'
-  AUDIENCE_LISTS_PATH = '/audience_lists/lists.xml'
-  MEMBERSHIPS_PATH = '/audience_members/%email%/lists.xml'
-  SUPPRESSED_SINCE_PATH = '/audience_members/suppressed_since/%timestamp%.txt'
-  SUPPRESS_USER_PATH = '/suppressed_audience_members/'
-  UNSUPPRESS_USER_PATH = '/suppressed_audience_members/%email%'
-  IS_SUPPRESSED_PATH = '/audience_members/%email%/is_suppressed'
-  UPDATE_USER_EMAIL_PATH = '/audience_members/%email%/update_email'
-  GET_AUDIENCE_MEMBERS_PATH = '/audience_members.xml'
-  GET_AUDIENCE_LIST_MEMBERS_PATH = '/audience_lists/%list%/members.xml'
-  SEARCH_PATH = '/audience_members/search.xml'
+  base_uri 'api.madmimi.com'
 
-  PROMOTIONS_PATH = '/promotions.xml'
-  PROMOTION_SAVE_PATH = '/promotions/save'
-
-  MAILING_STATS_PATH = '/promotions/%promotion_id%/mailings/%mailing_id%.xml'
-
-  MAILER_PATH = '/mailer'
-  MAILER_TO_LIST_PATH = '/mailer/to_list'
-  MAILER_TO_ALL_PATH = '/mailer/to_all'
-  MAILER_STATUS_PATH = '/mailers/status'
+  parser(
+    Proc.new do |body, format|
+      begin
+        case format
+        when :json
+          Crack::JSON.parse(body)
+        when :xml
+          Crack::XML.parse(body)
+        else
+          body
+        end
+      rescue Crack::ParserError
+        body
+      end
+    end
+  )
 
   def initialize(username, api_key, options = {})
     @api_settings = options.reverse_merge({
-      :ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE
+      :verify_ssl => true
     }).merge({
-      :username        => username,
-      :api_key         => api_key
+      :username   => username,
+      :api_key    => api_key
     })
-  end
-
-  def raise_exceptions?
-    @api_settings[:raise_exceptions]
   end
 
   def username
@@ -85,18 +77,17 @@ class MadMimi
     @api_settings[:api_key]
   end
 
-  def ssl_verify_mode
-    @api_settings[:ssl_verify_mode]
+  def raise_exceptions?
+    @api_settings[:raise_exceptions]
   end
 
-  def default_opt
-    { :username => username, :api_key => api_key }
+  def verify_ssl?
+    @api_settings[:verify_ssl]
   end
 
   # Audience and lists
   def lists
-    request = do_request(AUDIENCE_LISTS_PATH, :get)
-    Crack::XML.parse(request).tap do |response|
+    do_request(path(:audience_lists), :get, :format => :xml).tap do |response|
       if response['lists'] && response['lists']['list'].is_a?(Hash)
         response['lists']['list'] = [ response['lists']['list'] ]
       end
@@ -104,56 +95,53 @@ class MadMimi
   end
 
   def memberships(email)
-    request = do_request(MEMBERSHIPS_PATH.gsub('%email%', email), :get)
-    Crack::XML.parse(request)
+    do_request(path(:memberships, :email => email), :get)
   end
 
   def new_list(list_name)
-    do_request(NEW_LISTS_PATH, :post, :name => list_name)
+    do_request(path(:create_list), :post, :name => list_name)
   end
 
   def delete_list(list_name)
-    do_request("#{NEW_LISTS_PATH}/#{URI.escape(list_name)}", :post, :'_method' => 'delete')
+    do_request(path(:destroy_list, :list => list_name), :delete)
   end
 
   def csv_import(csv_string)
-    do_request(AUDIENCE_MEMBERS_PATH, :post, :csv_file => csv_string)
+    do_request(path(:audience_members), :post, :csv_file => csv_string)
   end
 
   def add_user(hash_or_array)
-    csv_data = build_csv(hash_or_array)
-    do_request(AUDIENCE_MEMBERS_PATH, :post, :csv_file => csv_data)
+    csv_import(build_csv(hash_or_array))
   end
+
   alias :add_users :add_user
 
   def add_to_list(email, list_name, options={})
-    do_request("#{NEW_LISTS_PATH}/#{URI.escape(list_name)}/add", :post, options.merge(:email => email))
+    do_request(path(:add_to_list, :list => list_name), :post, options.merge(:email => email))
   end
 
   def remove_from_list(email, list_name)
-    do_request("#{NEW_LISTS_PATH}/#{URI.escape(list_name)}/remove", :post, :email => email)
+    do_request(path(:remove_from_list, :list => list_name), :post, :email => email)
   end
 
   def remove_from_all_lists(email)
-    do_request("#{NEW_LISTS_PATH}/remove_all", :post, :email => email)
+    do_request(path(:remove_from_all_lists), :post, :email => email)
   end
 
   def update_email(existing_email, new_email)
-    do_request(UPDATE_USER_EMAIL_PATH.gsub('%email%', existing_email), :post, :email => existing_email, :new_email => new_email)
+    do_request(path(:update_user_email, :email => existing_email), :post, :email => existing_email, :new_email => new_email)
   end
 
   def members
-    request = do_request(GET_AUDIENCE_MEMBERS_PATH, :get)
-    Crack::XML.parse(request)
+    do_request(path(:get_audience_members), :get)
   end
 
   def list_members(list_name)
-    request = do_request(GET_AUDIENCE_LIST_MEMBERS_PATH.gsub('%list%', URI.escape(list_name)), :get)
-    Crack::XML.parse(request)
+    do_request(path(:audience_list_members, :list => list_name), :get)
   end
 
   def suppressed_since(timestamp, show_suppression_reason = false)
-    do_request(SUPPRESSED_SINCE_PATH.gsub('%timestamp%', timestamp), :get, {
+    do_request(path(:suppressed_since, :timestamp => timestamp), :get, {
       :show_suppression_reason => show_suppression_reason
     })
   end
@@ -162,7 +150,7 @@ class MadMimi
     return '' if suppressed?(email)
 
     process_json_response do
-      do_request(SUPPRESS_USER_PATH, :post, :id => email)
+      do_request(path(:suppress_user), :post, :audience_member_id => email, :format => :json)
     end
   end
 
@@ -170,32 +158,26 @@ class MadMimi
     return '' unless suppressed?(email)
 
     process_json_response do
-      do_request(UNSUPPRESS_USER_PATH.gsub('%email%', URI.escape(email)), :post, :'_method' => 'delete')
+      do_request(path(:unsuppress_user, :email => email), :delete, :format => :json)
     end
   end
 
   def suppressed?(email)
-    response = do_request(IS_SUPPRESSED_PATH.gsub('%email%', URI.escape(email)), :get)
+    response = do_request(path(:is_suppressed, :email => email), :get)
     response == 'true'
   end
 
   def audience_search(query_string, raw = false)
-    request = do_request(SEARCH_PATH, :get, :raw => raw, :query => query_string)
-    Crack::XML.parse(request)
+    do_request(path(:search), :get, :raw => raw, :query => query_string)
   end
 
-  # Not the most elegant, but it works for now. :)
   def add_users_to_list(list_name, arr)
-    arr.each do |a|
-      a[:add_list] = list_name
-      add_user(a)
-    end
+    add_users(arr.map{ |a| a[:add_list] = list_name; a })
   end
 
   # Promotions
   def promotions
-    request = do_request(PROMOTIONS_PATH, :get)
-    Crack::XML.parse(request)
+    do_request(path(:promotions), :get)
   end
 
   def save_promotion(promotion_name, raw_html, plain_text = nil)
@@ -212,14 +194,12 @@ class MadMimi
       options[:raw_plain_text] = plain_text
     end
 
-    do_request PROMOTION_SAVE_PATH, :post, options
+    do_request(path(:promotion_save), :post, options)
   end
 
   # Stats
   def mailing_stats(promotion_id, mailing_id)
-    path = MAILING_STATS_PATH.gsub('%promotion_id%', promotion_id).gsub('%mailing_id%', mailing_id)
-    request = do_request(path, :get)
-    Crack::XML.parse(request)
+    do_request(path(:mailing_stats, :promotion_id => promotion_id, :mailing_id => mailing_id), :get)
   end
 
   # Mailer API
@@ -227,9 +207,9 @@ class MadMimi
     options = opt.dup
     options[:body] = yaml_body.to_yaml
     if !options[:list_name].nil? || options[:to_all]
-      do_request(options[:to_all] ? MAILER_TO_ALL_PATH : MAILER_TO_LIST_PATH, :post, options, true)
+      do_request(path(options[:to_all] ? :mailer_to_all : :mailer_to_list), :post, options, true)
     else
-      do_request(MAILER_PATH, :post, options, true)
+      do_request(path(:mailer), :post, options, true)
     end
   end
 
@@ -241,9 +221,9 @@ class MadMimi
         unless html.include?('[[unsubscribe]]') || html.include?('[[opt_out]]')
           raise MadMimiError, "When specifying list_name, include the [[unsubscribe]] or [[opt_out]] macro in your HTML before sending."
         end
-        do_request(options[:to_all] ? MAILER_TO_ALL_PATH : MAILER_TO_LIST_PATH, :post, options, true)
+        do_request(path(options[:to_all] ? :mailer_to_all : :mailer_to_list), :post, options, true)
       else
-        do_request(MAILER_PATH, :post, options, true)
+        do_request(path(:mailer), :post, options, true)
       end
     else
       raise MadMimiError, "You'll need to include either the [[tracking_beacon]] or [[peek_image]] macro in your HTML before sending."
@@ -255,45 +235,34 @@ class MadMimi
     options[:raw_plain_text] = plaintext
     if !options[:list_name].nil? || options[:to_all]
       if plaintext.include?('[[unsubscribe]]') || plaintext.include?('[[opt_out]]')
-        do_request(options[:to_all] ? MAILER_TO_ALL_PATH : MAILER_TO_LIST_PATH, :post, options, true)
+        do_request(path(options[:to_all] ? :mailer_to_all : :mailer_to_list), :post, options, true)
       else
         raise MadMimiError, "You'll need to include either the [[unsubscribe]] or [[opt_out]] macro in your text before sending."
       end
     else
-      do_request(MAILER_PATH, :post, options, true)
+      do_request(path(:mailer), :post, options, true)
     end
   end
 
   def status(transaction_id)
-    do_request "#{MAILER_STATUS_PATH}/#{transaction_id}", :get, {}, true
+    do_request(path(:mailer_status, :transaction_id => transaction_id), :get, {}, true)
   end
 
   private
 
   # Refactor this method asap
-  def do_request(path, req_type = :get, options = {}, transactional = false)
-    options = options.merge(default_opt)
-    form_data = options.inject({}) { |m, (k, v)| m[k.to_s] = v; m }
+  def do_request(path, method = :get, options = {}, transactional = false)
+    options = default_options.deep_merge({
+      :format => options.delete(:format) || extract_format(path),
+      :body => options
+    })
 
-    if transactional == true
-      http = Net::HTTP.new(BASE_URL, 443)
-      http.use_ssl = true
-      http.ssl_version = "SSLv3" if http.respond_to?(:ssl_version)
-      http.verify_mode = ssl_verify_mode
-    else
-      http = Net::HTTP.new(BASE_URL, 80)
-    end
+    path = convert_to_secure(path) if transactional
 
-    response = http.start do |http|
-      # Either Net::HTTP::Get or Net::HTTP::Post
-      http_class = Net::HTTP.const_get(req_type.to_s.titleize)
-      req = http_class.new(path)
-      req.set_form_data(form_data)
-      http.request(req)
-    end
+    response = self.class.send(method, path, options)
 
     response.value if raise_exceptions?
-    response.body.strip
+    response.parsed_response
   end
 
   def build_csv(hash_or_array)
@@ -333,12 +302,42 @@ class MadMimi
   end
 
   def process_json_response
-    response = yield
+    json_response = yield
     begin
-      json_response = JSON.parse(yield)
       json_response["success"] ? '' : json_response["error"]
     rescue JSON::ParserError
-      response
+      json_response
     end
+  end
+
+  def default_options
+    {
+      :body => {
+        :username => username,
+        :api_key  => api_key
+      },
+      :verify => verify_ssl?
+    }
+  end
+
+  def extract_format(path)
+    File.extname(path)[1..-1].try(:to_sym)
+  end
+
+  def convert_to_secure(path)
+    "#{ self.class.base_uri.gsub('http://', 'https://') }#{ path }"
+  end
+
+  def path(key, arguments={})
+    escaped_arguments = arguments.inject({}){ |h, (k, v)| h[k] = URI.escape(v.to_s); h }
+    paths[key] % escaped_arguments
+  end
+
+  def paths
+    @paths ||= YAML.load(File.read(paths_config_file))
+  end
+
+  def paths_config_file
+    @paths_config_file ||= File.join(File.dirname(File.expand_path(__FILE__)), '../config/paths.yml')
   end
 end

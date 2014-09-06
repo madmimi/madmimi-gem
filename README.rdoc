@@ -22,9 +22,9 @@ You can pass +raise_exceptions+ to the initializer, if you wish to receive excep
  MadMimi.new('emailaddress', 'api_key', { :raise_exceptions => true })
  mimi.lists # will raise an Exception if request fails
 
-You can pass +ssl_verify_mode+ to the initializer, if you wish to change SSL verify mode used for requests:
+You can set +verify_ssl+ to either true or false in initializer, if you wish verify SSL or not in requests:
 
- MadMimi.new('emailaddress', 'api_key', { :ssl_verify_mode => OpenSSL::SSL::VERIFY_PEER })
+ MadMimi.new('emailaddress', 'api_key', { :verify_ssl => true })
 
 === Audience Members and Lists
 
@@ -155,6 +155,7 @@ will be those for an already-existing "audience."
 == Contributors
 tuker
 marcheiligers
+maximgladkov
 
 == Copyright
 

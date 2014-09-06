@@ -3,6 +3,7 @@ require "#{File.dirname(__FILE__)}/helper"
 class TestMadmimi < Test::Unit::TestCase
   context "An API call" do
     setup do
+      FakeWeb.allow_net_connect = false
       @mimi = MadMimi.new('email@example.com', 'testapikey')
     end
 
@@ -19,7 +20,7 @@ class TestMadmimi < Test::Unit::TestCase
     end
 
     should "retrieve a hash of users found with the search term nicholas" do
-      stub_get('/audience_members/search.xml?query=nicholas', { :filename => 'search.xml'})
+      stub_get('/audience_members/search.xml')
       response = @mimi.audience_search('nicholas')
       flunk "No users found." unless response.kind_of?(Hash) || !response.empty?
     end
@@ -68,16 +69,16 @@ class TestMadmimi < Test::Unit::TestCase
 
     should "suppress email" do
       stub_get("/audience_members/#{URI.escape('dave@example.com')}/is_suppressed", { :body => "false" })
-      stub_post("/suppressed_audience_members", { :https => true, :body => "sent", :id => 'dave@example.com' })
+      stub_post("/suppressed_audience_members", { :body => "{success: true}" })
       response = @mimi.suppress_email('dave@example.com')
-      flunk "email is not suppressed" unless response.kind_of?(Hash) || !response.empty?
+      flunk "email is not suppressed" unless response.empty?
     end
 
     should "unsuppress email" do
       stub_get("/audience_members/#{URI.escape('dave@example.com')}/is_suppressed", { :body => "true" })
-      stub_post("/suppressed_audience_members/#{URI.escape('dave@example.com')}", { :https => true, :body => "sent", :'_method' => 'delete' })
+      stub_delete("/suppressed_audience_members/#{URI.escape('dave@example.com')}", { :body => "{success: true}" })
       response = @mimi.unsuppress_email('dave@example.com')
-      flunk "email is not unsuppressed" unless response.kind_of?(Hash) || !response.empty?
+      flunk "email is not unsuppressed" unless response.empty?
     end
   end
 end
