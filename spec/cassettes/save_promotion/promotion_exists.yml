@@ -1,0 +1,65 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.madmimi.com/promotions.xml
+    body:
+      encoding: US-ASCII
+      string: username=test%40example.com&api_key=TEST_API_KEY
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 08 Sep 2014 06:05:05 GMT
+      Content-Type:
+      - application/xml; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d9fc4517fe04f0b884465dd1515fdf3221410156305454; expires=Mon, 23-Dec-2019
+        23:50:00 GMT; path=/; domain=.madmimi.com; HttpOnly
+      - _mad_mimi=BAh7B0kiD3Nlc3Npb25faWQGOgZFVEkiJWIzOTYxYzQ3MjhiNDM3NGNmZmIzY2QyYTkxYzczZGRiBjsAVEkiCmNydW1iBjsARkkiEC9wcm9tb3Rpb25zBjsAVA%3D%3D--0549d5ea48ddece32e1ede59d2a9cda50d37ade8;
+        domain=.madmimi.com; path=/; HttpOnly
+      - chrome_token=; domain=madmimi.com; path=/; expires=Thu, 01-Jan-1970 00:00:00
+        GMT
+      - non_eu=true; path=/
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - W/"a18c7fd0ce38d8a083ad1b48c9fba6bb"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - e38c7016cfdd77f8232dd66b9f0080a6
+      X-Rack-Cache:
+      - miss
+      Status:
+      - 200 OK
+      Vary:
+      - Accept-Encoding
+      P3p:
+      - CP="CAO PSA OUR"
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 1668f3cd1c4c07d9-LAX
+    body:
+      encoding: US-ASCII
+      string: ! "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<promotions>\n<promotion
+        name=\"Test promotion\" id=\"5516645\" mimio=\"56d245\" updated_at=\"2014-09-08
+        01:05:05 -0500\" hidden=\"false\" thumbnail=\"\">\n</promotion>\n<promotion
+        name=\"Untitled Promotion\" id=\"5515748\" mimio=\"4e9245\" updated_at=\"2014-09-07
+        15:54:55 -0500\" hidden=\"false\" thumbnail=\"https://snaps.madmimi.com/v2/thumbs.php?size=b&amp;wait=120&amp;url=https%3A%2F%2Fmadmimi.com%2Fp%2F4e9245\">\n</promotion>\n<promotion
+        name=\"API test\" id=\"5510034\" mimio=\"293145\" updated_at=\"2014-09-05
+        14:20:42 -0500\" hidden=\"false\" thumbnail=\"https://snaps.madmimi.com/v2/thumbs.php?size=b&amp;wait=120&amp;url=https%3A%2F%2Fmadmimi.com%2Fp%2F293145\">\n
+        \ <mailing id=\"122026332\" subject=\"API test\" count=\"1\">\n    <started_send>2014-09-05
+        14:26:32 -0500</started_send>\n    <finished_send>2014-09-05 14:26:34 -0500</finished_send>\n
+        \ </mailing>\n</promotion>\n</promotions>\n"
+    http_version: 
+  recorded_at: Mon, 08 Sep 2014 06:05:06 GMT
+recorded_with: VCR 2.9.2

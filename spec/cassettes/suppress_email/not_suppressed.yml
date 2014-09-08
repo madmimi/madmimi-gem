@@ -1,0 +1,102 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.madmimi.com/audience_members/test@example.com/is_suppressed
+    body:
+      encoding: US-ASCII
+      string: username=test%40example.com&api_key=TEST_API_KEY
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 07 Sep 2014 19:32:08 GMT
+      Content-Type:
+      - text/html
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d491f94d4d37f56967f7efc06145efd961410118328096; expires=Mon, 23-Dec-2019
+        23:50:00 GMT; path=/; domain=.madmimi.com; HttpOnly
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - W/"68934a3e9455fa72420237eb05902327"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 73e91f73869b5109748f451178567353
+      X-Rack-Cache:
+      - miss
+      Status:
+      - 200 OK
+      P3p:
+      - CP="CAO PSA OUR"
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 1665549e98aa0479-FRA
+    body:
+      encoding: US-ASCII
+      string: 'false'
+    http_version: 
+  recorded_at: Sun, 07 Sep 2014 19:32:07 GMT
+- request:
+    method: post
+    uri: http://api.madmimi.com/suppressed_audience_members
+    body:
+      encoding: US-ASCII
+      string: username=test%40example.com&api_key=TEST_API_KEY&audience_member_id=test%40example.com
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 07 Sep 2014 19:32:08 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d5ee7925668479eb296404ec6047fec101410118328569; expires=Mon, 23-Dec-2019
+        23:50:00 GMT; path=/; domain=.madmimi.com; HttpOnly
+      - chrome_token=; domain=madmimi.com; path=/; expires=Thu, 01-Jan-1970 00:00:00
+        GMT
+      - non_eu=true; path=/
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - ! '"c3dfaff4a5fecf8f0c431a685fd54383"'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 4e4f8e1830433242a9ec0788678beedb
+      X-Rack-Cache:
+      - invalidate, pass
+      Status:
+      - 200 OK
+      P3p:
+      - CP="CAO PSA OUR"
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 166554a180110479-FRA
+    body:
+      encoding: US-ASCII
+      string: ! '{"success":false,"error":"Couldn''t find AudienceMember with id=test@example.com
+        [WHERE `audience_members`.`user_id` = 290143 AND ((audience_members.suppressed
+        IS NULL OR audience_members.suppressed = 0))]"}'
+    http_version: 
+  recorded_at: Sun, 07 Sep 2014 19:32:08 GMT
+recorded_with: VCR 2.9.2

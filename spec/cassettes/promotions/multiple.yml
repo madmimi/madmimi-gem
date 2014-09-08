@@ -1,0 +1,63 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.madmimi.com/promotions.xml
+    body:
+      encoding: US-ASCII
+      string: username=test%40example.com&api_key=TEST_API_KEY
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 07 Sep 2014 20:58:40 GMT
+      Content-Type:
+      - application/xml; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d3bc94ebecff827f33dfac4f79461762c1410123520374; expires=Mon, 23-Dec-2019
+        23:50:00 GMT; path=/; domain=.madmimi.com; HttpOnly
+      - _mad_mimi=BAh7B0kiD3Nlc3Npb25faWQGOgZFVEkiJTM4MWMzMGQyNWMyZDc5YWIzYWE1YjIzZWM0OGI1MWJmBjsAVEkiCmNydW1iBjsARkkiEC9wcm9tb3Rpb25zBjsAVA%3D%3D--9ea71f2fe04079e9b5704503444134765538c3b9;
+        domain=.madmimi.com; path=/; HttpOnly
+      - chrome_token=; domain=madmimi.com; path=/; expires=Thu, 01-Jan-1970 00:00:00
+        GMT
+      - non_eu=true; path=/
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - W/"0d5511548b2a8a029e2e9ab9076334e3"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 8530fcee1cc6b900cf0c5ab96f1c9384
+      X-Rack-Cache:
+      - miss
+      Status:
+      - 200 OK
+      Vary:
+      - Accept-Encoding
+      P3p:
+      - CP="CAO PSA OUR"
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 1665d3625fa1088d-FRA
+    body:
+      encoding: US-ASCII
+      string: ! "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<promotions>\n<promotion
+        name=\"Untitled Promotion\" id=\"5515748\" mimio=\"4e9245\" updated_at=\"2014-09-07
+        16:54:55 -0400\" hidden=\"false\" thumbnail=\"https://snaps.madmimi.com/v2/thumbs.php?size=b&amp;wait=120&amp;url=https%3A%2F%2Fmadmimi.com%2Fp%2F4e9245\">\n</promotion>\n<promotion
+        name=\"API test\" id=\"5510034\" mimio=\"293145\" updated_at=\"2014-09-05
+        15:20:42 -0400\" hidden=\"false\" thumbnail=\"https://snaps.madmimi.com/v2/thumbs.php?size=b&amp;wait=120&amp;url=https%3A%2F%2Fmadmimi.com%2Fp%2F293145\">\n
+        \ <mailing id=\"122026332\" subject=\"API test\" count=\"1\">\n    <started_send>2014-09-05
+        15:26:32 -0400</started_send>\n    <finished_send>2014-09-05 15:26:34 -0400</finished_send>\n
+        \ </mailing>\n</promotion>\n</promotions>\n"
+    http_version: 
+  recorded_at: Sun, 07 Sep 2014 20:58:40 GMT
+recorded_with: VCR 2.9.2

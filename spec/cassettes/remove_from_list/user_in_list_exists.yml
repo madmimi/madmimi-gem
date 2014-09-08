@@ -1,0 +1,68 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.madmimi.com/audience_lists/list%201/members.xml
+    body:
+      encoding: US-ASCII
+      string: username=test%40example.com&api_key=TEST_API_KEY
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 07 Sep 2014 18:20:35 GMT
+      Content-Type:
+      - application/xml; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=da599cd2b29d78e9b28dd714844a0841e1410114034967; expires=Mon, 23-Dec-2019
+        23:50:00 GMT; path=/; domain=.madmimi.com; HttpOnly
+      - chrome_token=; domain=madmimi.com; path=/; expires=Thu, 01-Jan-1970 00:00:00
+        GMT
+      - non_eu=true; path=/
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - W/"bcc5c9a04ac6c0367e3ffc6a055a5682"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 4b05670260971b01bf68a03718a5269f
+      X-Rack-Cache:
+      - miss
+      Status:
+      - 200 OK
+      P3p:
+      - CP="CAO PSA OUR"
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 1664ebce8d520479-FRA
+    body:
+      encoding: US-ASCII
+      string: ! "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<audience count=\"1\"
+        total_pages=\"1\" per_page=\"30\" page=\"1\">\n  <member suppressed=\"false\">\n
+        \   <first_name/>\n    <last_name/>\n    <email>new_test1@example.com</email>\n
+        \   <created_at>2014-09-04 15:32:31 -0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n      <list membership_created_at=\"2014-09-04
+        18:32:31 UTC\">list 1</list>\n      <list membership_created_at=\"2014-09-04
+        18:32:45 UTC\">list 2</list>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name/>\n    <last_name/>\n    <email>test@example.com</email>\n
+        \   <created_at>2014-09-07 14:35:25 -0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value>updated value</custom_value>\n
+        \   <custom_value_1/>\n    <custom_value_2/>\n    <lists>\n      <list membership_created_at=\"2014-09-07
+        18:20:26 UTC\">list 1</list>\n    </lists>\n  </member>\n</audience>\n"
+    http_version: 
+  recorded_at: Sun, 07 Sep 2014 18:20:34 GMT
+recorded_with: VCR 2.9.2

@@ -1,0 +1,52 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://api.madmimi.com/audience_members/test@example.com/update_email
+    body:
+      encoding: US-ASCII
+      string: username=test%40example.com&api_key=TEST_API_KEY&email=test%40example.com&new_email=updated%40example.com
+    headers: {}
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Date:
+      - Sun, 07 Sep 2014 18:59:43 GMT
+      Content-Type:
+      - text/html; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d9cc75a4f629d15c61d623fe9a4255c791410116383162; expires=Mon, 23-Dec-2019
+        23:50:00 GMT; path=/; domain=.madmimi.com; HttpOnly
+      - chrome_token=; domain=madmimi.com; path=/; expires=Thu, 01-Jan-1970 00:00:00
+        GMT
+      - non_eu=true; path=/
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Cache-Control:
+      - no-cache
+      X-Request-Id:
+      - 0d1dacbd44a0b1e4f14d52ada8dc3ffa
+      X-Rack-Cache:
+      - invalidate, pass
+      Status:
+      - 400 Bad Request
+      P3p:
+      - CP="CAO PSA OUR"
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 16652522cd410479-FRA
+    body:
+      encoding: US-ASCII
+      string: Member test@example.com does not exist
+    http_version: 
+  recorded_at: Sun, 07 Sep 2014 18:59:42 GMT
+recorded_with: VCR 2.9.2

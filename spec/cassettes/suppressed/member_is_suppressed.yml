@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.madmimi.com/audience_members/test@example.com/is_suppressed
+    body:
+      encoding: US-ASCII
+      string: username=test%40example.com&api_key=TEST_API_KEY
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 07 Sep 2014 20:00:50 GMT
+      Content-Type:
+      - text/html
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d294be56958c470cf4159bad52981eaff1410120050208; expires=Mon, 23-Dec-2019
+        23:50:00 GMT; path=/; domain=.madmimi.com; HttpOnly
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - W/"b326b5062b2f0e69046810717534cb09"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - dccc0610dfc7b6c7a80973af5f90ae01
+      X-Rack-Cache:
+      - miss
+      Status:
+      - 200 OK
+      P3p:
+      - CP="CAO PSA OUR"
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 16657ea9c6540479-FRA
+    body:
+      encoding: US-ASCII
+      string: 'true'
+    http_version: 
+  recorded_at: Sun, 07 Sep 2014 20:00:49 GMT
+recorded_with: VCR 2.9.2

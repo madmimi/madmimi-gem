@@ -1,0 +1,53 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.madmimi.com/mailer
+    body:
+      encoding: US-ASCII
+      string: username=test%40example.com&api_key=TEST_API_KEY&promotion_name=Transactional%20Promotion&from=maxim%2B1%40madmimi.com&subject=Test&recipient=Test%20Example%20%3Ctest%40example.com%3E&raw_plain_text=Test%20%5B%5Btracking_beacon%5D%5D%20%5B%5Bopt_out%5D%5D
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - cloudflare-nginx
+      Date:
+      - Mon, 08 Sep 2014 08:21:21 GMT
+      Content-Type:
+      - text/html
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=dca373ad95ff8092620b6e4627a2f37211410164480566; expires=Mon, 23-Dec-2019
+        23:50:00 GMT; path=/; domain=.madmimi.com; HttpOnly
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - W/"015c378ff085dc285b810522682a1adf"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 2c1031419e32c1630e8fd3e735efb496
+      X-Rack-Cache:
+      - invalidate, pass
+      Status:
+      - 200 OK
+      P3p:
+      - CP="CAO PSA OUR"
+      Vary:
+      - Accept-Encoding
+      Cf-Ray:
+      - 1669bb62f0f80479-FRA
+    body:
+      encoding: US-ASCII
+      string: '10199232906916102010'
+    http_version: 
+  recorded_at: Mon, 08 Sep 2014 08:21:21 GMT
+recorded_with: VCR 2.9.2

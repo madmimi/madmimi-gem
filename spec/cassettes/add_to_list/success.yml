@@ -1,0 +1,54 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://api.madmimi.com/audience_lists/list%201/add
+    body:
+      encoding: US-ASCII
+      string: username=test%40example.com&api_key=TEST_API_KEY&custom_value=new%20value&email=test%40example.com
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 07 Sep 2014 17:35:25 GMT
+      Content-Type:
+      - text/html; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=db4b207a46d295ee8c58a461cf825ed901410111324878; expires=Mon, 23-Dec-2019
+        23:50:00 GMT; path=/; domain=.madmimi.com; HttpOnly
+      - chrome_token=; domain=madmimi.com; path=/; expires=Thu, 01-Jan-1970 00:00:00
+        GMT
+      - non_eu=true; path=/
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - W/"7215ee9c7d9dc229d2921a40e899ec5f"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 1d7303b8c583db836d14f7d14ac683c6
+      X-Rack-Cache:
+      - invalidate, pass
+      Status:
+      - 200 OK
+      P3p:
+      - CP="CAO PSA OUR"
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 1664a9a47b840479-FRA
+    body:
+      encoding: US-ASCII
+      string: ! ' '
+    http_version:
+  recorded_at: Sun, 07 Sep 2014 17:35:24 GMT
+recorded_with: VCR 2.9.2

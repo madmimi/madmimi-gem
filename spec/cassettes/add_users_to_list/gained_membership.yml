@@ -1,0 +1,107 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.madmimi.com/audience_members/add_users_to_list1@example.com/lists.xml
+    body:
+      encoding: US-ASCII
+      string: username=test%40example.com&api_key=TEST_API_KEY
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 07 Sep 2014 20:49:47 GMT
+      Content-Type:
+      - application/xml; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d6215617c6cd8e5540b327c99dfd1188a1410122987152; expires=Mon, 23-Dec-2019
+        23:50:00 GMT; path=/; domain=.madmimi.com; HttpOnly
+      - chrome_token=; domain=madmimi.com; path=/; expires=Thu, 01-Jan-1970 00:00:00
+        GMT
+      - non_eu=true; path=/
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - W/"fede9bf70dd9114dc22ddf24b0b52bd5"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 2e739d800105bea12afa52df41d155e9
+      X-Rack-Cache:
+      - miss
+      Status:
+      - 200 OK
+      P3p:
+      - CP="CAO PSA OUR"
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 1665c65db0c00479-FRA
+    body:
+      encoding: US-ASCII
+      string: ! "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<lists>\n  <list id=\"1163641\"
+        name=\"list 1\" subscriber_count=\"1\" display_name=\"\"/>\n</lists>\n"
+    http_version: 
+  recorded_at: Sun, 07 Sep 2014 20:49:47 GMT
+- request:
+    method: get
+    uri: http://api.madmimi.com/audience_members/add_users_to_list2@example.com/lists.xml
+    body:
+      encoding: US-ASCII
+      string: username=test%40example.com&api_key=TEST_API_KEY
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 07 Sep 2014 20:50:11 GMT
+      Content-Type:
+      - application/xml; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=dd0ef8b4dec9cdfa6b05a3df1c3da7d551410123010831; expires=Mon, 23-Dec-2019
+        23:50:00 GMT; path=/; domain=.madmimi.com; HttpOnly
+      - chrome_token=; domain=madmimi.com; path=/; expires=Thu, 01-Jan-1970 00:00:00
+        GMT
+      - non_eu=true; path=/
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - W/"fede9bf70dd9114dc22ddf24b0b52bd5"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 02d7030f339b6e096577347d548fcbce
+      X-Rack-Cache:
+      - miss
+      Status:
+      - 200 OK
+      P3p:
+      - CP="CAO PSA OUR"
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 1665c6f1b795088d-FRA
+    body:
+      encoding: US-ASCII
+      string: ! "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<lists>\n  <list id=\"1163641\"
+        name=\"list 1\" subscriber_count=\"1\" display_name=\"\"/>\n</lists>\n"
+    http_version: 
+  recorded_at: Sun, 07 Sep 2014 20:50:11 GMT
+recorded_with: VCR 2.9.2

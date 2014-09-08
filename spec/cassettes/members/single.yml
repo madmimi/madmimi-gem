@@ -1,0 +1,61 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.madmimi.com/audience_members.xml
+    body:
+      encoding: US-ASCII
+      string: username=test%40example.com&api_key=TEST_API_KEY
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 07 Sep 2014 19:11:34 GMT
+      Content-Type:
+      - application/xml; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d8a6ce8aa9c0d156329e6192fcacfb1f71410117094254; expires=Mon, 23-Dec-2019
+        23:50:00 GMT; path=/; domain=.madmimi.com; HttpOnly
+      - chrome_token=; domain=madmimi.com; path=/; expires=Thu, 01-Jan-1970 00:00:00
+        GMT
+      - non_eu=true; path=/
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - W/"1a4ee0207e6041804e280d55fe155839"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 6d04a18cb2e71838552fd0eba1c22101
+      X-Rack-Cache:
+      - miss
+      Status:
+      - 200 OK
+      Vary:
+      - Accept-Encoding
+      P3p:
+      - CP="CAO PSA OUR"
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 1665367f195c0479-FRA
+    body:
+      encoding: US-ASCII
+      string: ! "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<audience count=\"1\"
+        total_pages=\"1\" per_page=\"30\" page=\"1\">\n  <member suppressed=\"false\">\n
+        \   <first_name></first_name>\n    <last_name></last_name>\n    <email>add_to_list@example.com</email>\n
+        \   <created_at>2014-09-05 21:12:22 +0300</created_at>\n    <city></city>\n
+        \   <phone></phone>\n    <company></company>\n    <title></title>\n    <address></address>\n
+        \   <state></state>\n    <zip></zip>\n    <country></country>\n    <confirmed/>\n
+        \   <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n    <custom_value_2/>\n
+        \   <lists>\n    </lists>\n  </member>\n</audience>\n"
+    http_version:
+  recorded_at: Sun, 07 Sep 2014 19:11:34 GMT
+recorded_with: VCR 2.9.2

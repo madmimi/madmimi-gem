@@ -1,0 +1,52 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://api.madmimi.com/audience_lists.json
+    body:
+      encoding: US-ASCII
+      string: username=test%40example.com&api_key=TEST_API_KEY&name=new%20list%201
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 07 Sep 2014 15:50:07 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d3f83d58acea9ada0fb7b58643a568e5c1410105007059; expires=Mon, 23-Dec-2019
+        23:50:00 GMT; path=/; domain=.madmimi.com; HttpOnly
+      - chrome_token=; domain=madmimi.com; path=/; expires=Thu, 01-Jan-1970 00:00:00
+        GMT
+      - non_eu=true; path=/
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - ! '"0d4ffc9e29be953af32f227d4f79e36a"'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 83268e6286e0c2cddff122dc5060ada6
+      X-Rack-Cache:
+      - invalidate, pass
+      Status:
+      - 200 OK
+      P3p:
+      - CP="CAO PSA OUR"
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 16640f661f8c088d-FRA
+    body:
+      encoding: US-ASCII
+      string: ! '{"success":false,"error":"Name has already been taken"}'
+    http_version: 
+  recorded_at: Sun, 07 Sep 2014 15:50:07 GMT
+recorded_with: VCR 2.9.2

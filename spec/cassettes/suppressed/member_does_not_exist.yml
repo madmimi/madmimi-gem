@@ -1,0 +1,49 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.madmimi.com/audience_members/test@example.com/is_suppressed
+    body:
+      encoding: US-ASCII
+      string: username=test%40example.com&api_key=TEST_API_KEY
+    headers: {}
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Date:
+      - Sun, 07 Sep 2014 19:59:30 GMT
+      Content-Type:
+      - text/html
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d9158e10f1b8c5e37086fb636dd03f1521410119969889; expires=Mon, 23-Dec-2019
+        23:50:00 GMT; path=/; domain=.madmimi.com; HttpOnly
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Cache-Control:
+      - no-cache
+      X-Request-Id:
+      - e610f35858d3202c2691ffd4105f2df1
+      X-Rack-Cache:
+      - miss
+      Status:
+      - 400 Bad Request
+      P3p:
+      - CP="CAO PSA OUR"
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 16657cb3c98b0479-FRA
+    body:
+      encoding: US-ASCII
+      string: test@example.com does not exist
+    http_version: 
+  recorded_at: Sun, 07 Sep 2014 19:59:29 GMT
+recorded_with: VCR 2.9.2

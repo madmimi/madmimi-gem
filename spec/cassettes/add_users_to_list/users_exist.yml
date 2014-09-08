@@ -1,0 +1,365 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.madmimi.com/audience_members.xml
+    body:
+      encoding: US-ASCII
+      string: username=test%40example.com&api_key=TEST_API_KEY
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 07 Sep 2014 20:43:44 GMT
+      Content-Type:
+      - application/xml; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d22c26a7f7bca2e16edf91784dbb027581410122623731; expires=Mon, 23-Dec-2019
+        23:50:00 GMT; path=/; domain=.madmimi.com; HttpOnly
+      - chrome_token=; domain=madmimi.com; path=/; expires=Thu, 01-Jan-1970 00:00:00
+        GMT
+      - non_eu=true; path=/
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - W/"fe586aa5220323bd66d566146fb8d95d"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 6220b9ffd894ca0365cbd0b73bb24e7b
+      X-Rack-Cache:
+      - miss
+      Status:
+      - 200 OK
+      Vary:
+      - Accept-Encoding
+      P3p:
+      - CP="CAO PSA OUR"
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 1665bd7e5a1f0479-FRA
+    body:
+      encoding: US-ASCII
+      string: ! "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<audience count=\"24\"
+        total_pages=\"1\" per_page=\"30\" page=\"1\">\n  <member suppressed=\"false\">\n
+        \   <first_name></first_name>\n    <last_name></last_name>\n    <email>add_to_list@example.com</email>\n
+        \   <created_at>2014-09-05 21:12:22 +0300</created_at>\n    <city></city>\n
+        \   <phone></phone>\n    <company></company>\n    <title></title>\n    <address></address>\n
+        \   <state></state>\n    <zip></zip>\n    <country></country>\n    <confirmed/>\n
+        \   <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n    <custom_value_2/>\n
+        \   <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name>AddUser</first_name>\n    <last_name/>\n    <email>add_user@example.com</email>\n
+        \   <created_at>2014-09-07 19:41:31 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1>updated</custom_value_1>\n
+        \   <custom_value_2/>\n    <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name>AddUsers2</first_name>\n    <last_name/>\n    <email>add_users1@example.com</email>\n
+        \   <created_at>2014-09-07 20:06:30 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1>updated1</custom_value_1>\n
+        \   <custom_value_2>updated2</custom_value_2>\n    <lists>\n    </lists>\n
+        \ </member>\n  <member suppressed=\"false\">\n    <first_name>AddUsers2</first_name>\n
+        \   <last_name/>\n    <email>add_users2@example.com</email>\n    <created_at>2014-09-07
+        20:06:30 +0300</created_at>\n    <city/>\n    <phone/>\n    <company/>\n    <title/>\n
+        \   <address/>\n    <state/>\n    <zip/>\n    <country/>\n    <confirmed/>\n
+        \   <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n    <custom_value_2>add_users2</custom_value_2>\n
+        \   <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name/>\n    <last_name/>\n    <email>add_users_to_list1@example.com</email>\n
+        \   <created_at>2014-09-07 23:43:42 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n      <list membership_created_at=\"2014-09-07
+        20:43:42 UTC\">list 1</list>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name/>\n    <last_name/>\n    <email>add_users_to_list2@example.com</email>\n
+        \   <created_at>2014-09-07 23:43:42 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n      <list membership_created_at=\"2014-09-07
+        20:43:42 UTC\">list 1</list>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name/>\n    <last_name/>\n    <email>another@example.com</email>\n
+        \   <created_at>2014-09-07 22:14:29 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n      <list membership_created_at=\"2014-09-07
+        19:14:29 UTC\">list 1</list>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name>test2</first_name>\n    <last_name>csv2</last_name>\n    <email>csv_test2@example.com</email>\n
+        \   <created_at>2014-09-07 19:32:52 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name>test</first_name>\n    <last_name>csv</last_name>\n    <email>csv_test@example.com</email>\n
+        \   <created_at>2014-09-07 19:32:52 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name/>\n    <last_name/>\n    <email>maksim.gladkov@gmail.com</email>\n
+        \   <created_at>2014-09-05 22:25:20 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name/>\n    <last_name/>\n    <email>multi1@example.com</email>\n
+        \   <created_at>2014-09-05 11:50:51 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name/>\n    <last_name/>\n    <email>multi1_1@example.com</email>\n
+        \   <created_at>2014-09-05 11:55:39 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name>Multi</first_name>\n    <last_name/>\n    <email>multi1_2@example.com</email>\n
+        \   <created_at>2014-09-05 11:55:39 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name/>\n    <last_name>Third</last_name>\n    <email>multi1_3@example.com</email>\n
+        \   <created_at>2014-09-05 11:55:39 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name/>\n    <last_name/>\n    <email>multi1_4@example.com</email>\n
+        \   <created_at>2014-09-05 11:55:39 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1>Custom Value</custom_field_1>\n    <custom_value/>\n
+        \   <custom_value_1/>\n    <custom_value_2/>\n    <lists>\n    </lists>\n
+        \ </member>\n  <member suppressed=\"false\">\n    <first_name>Multi</first_name>\n
+        \   <last_name/>\n    <email>multi2@example.com</email>\n    <created_at>2014-09-05
+        11:50:51 +0300</created_at>\n    <city/>\n    <phone/>\n    <company/>\n    <title/>\n
+        \   <address/>\n    <state/>\n    <zip/>\n    <country/>\n    <confirmed/>\n
+        \   <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n    <custom_value_2/>\n
+        \   <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name/>\n    <last_name>Third</last_name>\n    <email>multi3@example.com</email>\n
+        \   <created_at>2014-09-05 11:50:51 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name/>\n    <last_name/>\n    <email>multi4@example.com</email>\n
+        \   <created_at>2014-09-05 11:50:51 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1>Custom Value</custom_field_1>\n    <custom_value/>\n
+        \   <custom_value_1/>\n    <custom_value_2/>\n    <lists>\n    </lists>\n
+        \ </member>\n  <member suppressed=\"false\">\n    <first_name/>\n    <last_name/>\n
+        \   <email>new_test2@example.com</email>\n    <created_at>2014-09-05 21:11:24
+        +0300</created_at>\n    <city/>\n    <phone/>\n    <company>Dummy Company</company>\n
+        \   <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n    <confirmed/>\n
+        \   <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n    <custom_value_2/>\n
+        \   <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name>New</first_name>\n    <last_name>Test</last_name>\n    <email>new_test@example.com</email>\n
+        \   <created_at>2014-09-05 21:10:19 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name>New</first_name>\n    <last_name/>\n    <email>new_user1@example.com</email>\n
+        \   <created_at>2014-09-05 22:17:39 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n      <list membership_created_at=\"2014-09-05
+        19:17:39 UTC\">list 2</list>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name>Single</first_name>\n    <last_name>One</last_name>\n    <email>single1@example.com</email>\n
+        \   <created_at>2014-09-05 11:50:51 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name>Single</first_name>\n    <last_name>One</last_name>\n    <email>single1_1@example.com</email>\n
+        \   <created_at>2014-09-05 11:55:38 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name/>\n    <last_name/>\n    <email>updated@example.com</email>\n
+        \   <created_at>2014-09-07 20:35:25 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value>updated value</custom_value>\n
+        \   <custom_value_1/>\n    <custom_value_2/>\n    <lists>\n    </lists>\n
+        \ </member>\n</audience>\n"
+    http_version: 
+  recorded_at: Sun, 07 Sep 2014 20:43:44 GMT
+- request:
+    method: get
+    uri: http://api.madmimi.com/audience_members.xml
+    body:
+      encoding: US-ASCII
+      string: username=test%40example.com&api_key=TEST_API_KEY
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 07 Sep 2014 20:43:44 GMT
+      Content-Type:
+      - application/xml; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d2d2b98c31e3328a9bebfb4dcd2cb63ae1410122624325; expires=Mon, 23-Dec-2019
+        23:50:00 GMT; path=/; domain=.madmimi.com; HttpOnly
+      - chrome_token=; domain=madmimi.com; path=/; expires=Thu, 01-Jan-1970 00:00:00
+        GMT
+      - non_eu=true; path=/
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - W/"fe586aa5220323bd66d566146fb8d95d"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 47ef29452d19c4ac27eafe66a040ea02
+      X-Rack-Cache:
+      - miss
+      Status:
+      - 200 OK
+      Vary:
+      - Accept-Encoding
+      P3p:
+      - CP="CAO PSA OUR"
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 1665bd8206d10479-FRA
+    body:
+      encoding: US-ASCII
+      string: ! "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<audience count=\"24\"
+        total_pages=\"1\" per_page=\"30\" page=\"1\">\n  <member suppressed=\"false\">\n
+        \   <first_name></first_name>\n    <last_name></last_name>\n    <email>add_to_list@example.com</email>\n
+        \   <created_at>2014-09-05 21:12:22 +0300</created_at>\n    <city></city>\n
+        \   <phone></phone>\n    <company></company>\n    <title></title>\n    <address></address>\n
+        \   <state></state>\n    <zip></zip>\n    <country></country>\n    <confirmed/>\n
+        \   <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n    <custom_value_2/>\n
+        \   <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name>AddUser</first_name>\n    <last_name/>\n    <email>add_user@example.com</email>\n
+        \   <created_at>2014-09-07 19:41:31 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1>updated</custom_value_1>\n
+        \   <custom_value_2/>\n    <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name>AddUsers2</first_name>\n    <last_name/>\n    <email>add_users1@example.com</email>\n
+        \   <created_at>2014-09-07 20:06:30 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1>updated1</custom_value_1>\n
+        \   <custom_value_2>updated2</custom_value_2>\n    <lists>\n    </lists>\n
+        \ </member>\n  <member suppressed=\"false\">\n    <first_name>AddUsers2</first_name>\n
+        \   <last_name/>\n    <email>add_users2@example.com</email>\n    <created_at>2014-09-07
+        20:06:30 +0300</created_at>\n    <city/>\n    <phone/>\n    <company/>\n    <title/>\n
+        \   <address/>\n    <state/>\n    <zip/>\n    <country/>\n    <confirmed/>\n
+        \   <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n    <custom_value_2>add_users2</custom_value_2>\n
+        \   <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name/>\n    <last_name/>\n    <email>add_users_to_list1@example.com</email>\n
+        \   <created_at>2014-09-07 23:43:42 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n      <list membership_created_at=\"2014-09-07
+        20:43:42 UTC\">list 1</list>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name/>\n    <last_name/>\n    <email>add_users_to_list2@example.com</email>\n
+        \   <created_at>2014-09-07 23:43:42 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n      <list membership_created_at=\"2014-09-07
+        20:43:42 UTC\">list 1</list>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name/>\n    <last_name/>\n    <email>another@example.com</email>\n
+        \   <created_at>2014-09-07 22:14:29 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n      <list membership_created_at=\"2014-09-07
+        19:14:29 UTC\">list 1</list>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name>test2</first_name>\n    <last_name>csv2</last_name>\n    <email>csv_test2@example.com</email>\n
+        \   <created_at>2014-09-07 19:32:52 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name>test</first_name>\n    <last_name>csv</last_name>\n    <email>csv_test@example.com</email>\n
+        \   <created_at>2014-09-07 19:32:52 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name/>\n    <last_name/>\n    <email>maksim.gladkov@gmail.com</email>\n
+        \   <created_at>2014-09-05 22:25:20 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name/>\n    <last_name/>\n    <email>multi1@example.com</email>\n
+        \   <created_at>2014-09-05 11:50:51 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name/>\n    <last_name/>\n    <email>multi1_1@example.com</email>\n
+        \   <created_at>2014-09-05 11:55:39 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name>Multi</first_name>\n    <last_name/>\n    <email>multi1_2@example.com</email>\n
+        \   <created_at>2014-09-05 11:55:39 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name/>\n    <last_name>Third</last_name>\n    <email>multi1_3@example.com</email>\n
+        \   <created_at>2014-09-05 11:55:39 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name/>\n    <last_name/>\n    <email>multi1_4@example.com</email>\n
+        \   <created_at>2014-09-05 11:55:39 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1>Custom Value</custom_field_1>\n    <custom_value/>\n
+        \   <custom_value_1/>\n    <custom_value_2/>\n    <lists>\n    </lists>\n
+        \ </member>\n  <member suppressed=\"false\">\n    <first_name>Multi</first_name>\n
+        \   <last_name/>\n    <email>multi2@example.com</email>\n    <created_at>2014-09-05
+        11:50:51 +0300</created_at>\n    <city/>\n    <phone/>\n    <company/>\n    <title/>\n
+        \   <address/>\n    <state/>\n    <zip/>\n    <country/>\n    <confirmed/>\n
+        \   <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n    <custom_value_2/>\n
+        \   <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name/>\n    <last_name>Third</last_name>\n    <email>multi3@example.com</email>\n
+        \   <created_at>2014-09-05 11:50:51 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name/>\n    <last_name/>\n    <email>multi4@example.com</email>\n
+        \   <created_at>2014-09-05 11:50:51 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1>Custom Value</custom_field_1>\n    <custom_value/>\n
+        \   <custom_value_1/>\n    <custom_value_2/>\n    <lists>\n    </lists>\n
+        \ </member>\n  <member suppressed=\"false\">\n    <first_name/>\n    <last_name/>\n
+        \   <email>new_test2@example.com</email>\n    <created_at>2014-09-05 21:11:24
+        +0300</created_at>\n    <city/>\n    <phone/>\n    <company>Dummy Company</company>\n
+        \   <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n    <confirmed/>\n
+        \   <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n    <custom_value_2/>\n
+        \   <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name>New</first_name>\n    <last_name>Test</last_name>\n    <email>new_test@example.com</email>\n
+        \   <created_at>2014-09-05 21:10:19 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name>New</first_name>\n    <last_name/>\n    <email>new_user1@example.com</email>\n
+        \   <created_at>2014-09-05 22:17:39 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n      <list membership_created_at=\"2014-09-05
+        19:17:39 UTC\">list 2</list>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name>Single</first_name>\n    <last_name>One</last_name>\n    <email>single1@example.com</email>\n
+        \   <created_at>2014-09-05 11:50:51 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name>Single</first_name>\n    <last_name>One</last_name>\n    <email>single1_1@example.com</email>\n
+        \   <created_at>2014-09-05 11:55:38 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name/>\n    <last_name/>\n    <email>updated@example.com</email>\n
+        \   <created_at>2014-09-07 20:35:25 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value>updated value</custom_value>\n
+        \   <custom_value_1/>\n    <custom_value_2/>\n    <lists>\n    </lists>\n
+        \ </member>\n</audience>\n"
+    http_version: 
+  recorded_at: Sun, 07 Sep 2014 20:43:44 GMT
+recorded_with: VCR 2.9.2

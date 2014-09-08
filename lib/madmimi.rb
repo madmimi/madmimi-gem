@@ -37,7 +37,7 @@ require 'crack'
 
 class MadMimi
 
-  class MadMimiError < StandardError; end
+  MadMimiError = Class.new(StandardError)
 
   include HTTParty
 
@@ -54,7 +54,7 @@ class MadMimi
         else
           body
         end
-      rescue Crack::ParserError
+      rescue Crack::ParseError, REXML::ParseException
         body
       end
     end
@@ -81,21 +81,29 @@ class MadMimi
     @api_settings[:raise_exceptions]
   end
 
+  def raise_exceptions=(raise_exceptions)
+    @api_settings[:raise_exceptions] = raise_exceptions
+  end
+
   def verify_ssl?
     @api_settings[:verify_ssl]
   end
 
+  def verify_ssl=(verify_ssl)
+    @api_settings[:verify_ssl] = verify_ssl
+  end
+
   # Audience and lists
   def lists
-    do_request(path(:audience_lists), :get, :format => :xml).tap do |response|
-      if response['lists'] && response['lists']['list'].is_a?(Hash)
-        response['lists']['list'] = [ response['lists']['list'] ]
-      end
+    wrap_with_array('lists', 'list') do
+      do_request(path(:audience_lists), :get, :format => :xml)
     end
   end
 
   def memberships(email)
-    do_request(path(:memberships, :email => email), :get)
+    wrap_with_array('lists', 'list') do
+      do_request(path(:memberships, :email => email), :get)
+    end
   end
 
   def new_list(list_name)
@@ -133,11 +141,15 @@ class MadMimi
   end
 
   def members
-    do_request(path(:get_audience_members), :get)
+    wrap_with_array('audience', 'member') do
+      do_request(path(:get_audience_members), :get)
+    end
   end
 
   def list_members(list_name)
-    do_request(path(:audience_list_members, :list => list_name), :get)
+    wrap_with_array('audience', 'member') do
+      do_request(path(:audience_list_members, :list => list_name), :get)
+    end
   end
 
   def suppressed_since(timestamp, show_suppression_reason = false)
@@ -177,7 +189,9 @@ class MadMimi
 
   # Promotions
   def promotions
-    do_request(path(:promotions), :get)
+    wrap_with_array('promotions', 'promotion') do
+      do_request(path(:promotions), :get)
+    end
   end
 
   def save_promotion(promotion_name, raw_html, plain_text = nil)
@@ -339,5 +353,15 @@ class MadMimi
 
   def paths_config_file
     @paths_config_file ||= File.join(File.dirname(File.expand_path(__FILE__)), '../config/paths.yml')
+  end
+
+  def wrap_with_array(*args)
+    yield.tap do |response|
+      obj = args[0..-2].inject(response){ |r, arg| r.try(:[], arg) }
+
+      if obj && obj[args.last] && obj[args.last].is_a?(Hash)
+        obj[args.last] = Array.wrap(obj[args.last])
+      end
+    end
   end
 end

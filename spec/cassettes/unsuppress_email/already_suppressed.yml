@@ -1,0 +1,100 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.madmimi.com/audience_members/test@example.com/is_suppressed
+    body:
+      encoding: US-ASCII
+      string: username=test%40example.com&api_key=TEST_API_KEY
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 07 Sep 2014 19:34:42 GMT
+      Content-Type:
+      - text/html
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=da9673a68998e50baa2d0ab81af544cc01410118482495; expires=Mon, 23-Dec-2019
+        23:50:00 GMT; path=/; domain=.madmimi.com; HttpOnly
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - W/"b326b5062b2f0e69046810717534cb09"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - a2bc879e1ad19ac7999525c6c4fc978d
+      X-Rack-Cache:
+      - miss
+      Status:
+      - 200 OK
+      P3p:
+      - CP="CAO PSA OUR"
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 166558639e9b0479-FRA
+    body:
+      encoding: US-ASCII
+      string: 'true'
+    http_version: 
+  recorded_at: Sun, 07 Sep 2014 19:34:42 GMT
+- request:
+    method: delete
+    uri: http://api.madmimi.com/suppressed_audience_members/test@example.com
+    body:
+      encoding: US-ASCII
+      string: username=test%40example.com&api_key=TEST_API_KEY
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 07 Sep 2014 19:34:43 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d81f86bb024b925d5098fadcd501a44a71410118483245; expires=Mon, 23-Dec-2019
+        23:50:00 GMT; path=/; domain=.madmimi.com; HttpOnly
+      - chrome_token=; domain=madmimi.com; path=/; expires=Thu, 01-Jan-1970 00:00:00
+        GMT
+      - non_eu=true; path=/
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - ! '"9ba368baedac64bd9f8b7dff7260c72e"'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - b4af50d6cabfeba3ff1f2b457e7345ba
+      X-Rack-Cache:
+      - invalidate, pass
+      Status:
+      - 200 OK
+      P3p:
+      - CP="CAO PSA OUR"
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 16655868496d0479-FRA
+    body:
+      encoding: US-ASCII
+      string: ! '{"success":true,"result":{"id":7130012110,"email":"test@example.com","name":"","first_name":"","last_name":"","suppressed":false,"recent_signup?":false,"suppression_reason":"","suppression_reason_class":"sent","external_id":null,"special_list_member":false,"lists":[],"list_removals":[],"list_unsuppressions":[],"list_additions":[]}}'
+    http_version: 
+  recorded_at: Sun, 07 Sep 2014 19:34:43 GMT
+recorded_with: VCR 2.9.2

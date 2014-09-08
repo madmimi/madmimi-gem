@@ -1,0 +1,54 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.madmimi.com/mailer/to_all
+    body:
+      encoding: US-ASCII
+      string: username=test%40example.com&api_key=TEST_API_KEY&promotion_name=Unknown%20Promotion&from=maxim%2B1%40madmimi.com&subject=Test&to_all=true&body=---%20%7B%7D%0A
+    headers: {}
+  response:
+    status:
+      code: 409
+      message: Conflict
+    headers:
+      Server:
+      - cloudflare-nginx
+      Date:
+      - Mon, 08 Sep 2014 07:59:12 GMT
+      Content-Type:
+      - text/html; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d545892f3aefa669d2db750bd6a398f611410163151807; expires=Mon, 23-Dec-2019
+        23:50:00 GMT; path=/; domain=.madmimi.com; HttpOnly
+      - chrome_token=; domain=madmimi.com; path=/; expires=Thu, 01-Jan-1970 00:00:00
+        GMT
+      - non_eu=true; path=/
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Cache-Control:
+      - no-cache
+      X-Request-Id:
+      - 10a8887589cba67e02435f4f50fde221
+      X-Rack-Cache:
+      - invalidate, pass
+      Status:
+      - 409 Conflict
+      P3p:
+      - CP="CAO PSA OUR"
+      Vary:
+      - Accept-Encoding
+      Cf-Ray:
+      - 16699af23331088d-FRA
+    body:
+      encoding: US-ASCII
+      string: You do not have a promotion named Unknown Promotion.
+    http_version: 
+  recorded_at: Mon, 08 Sep 2014 07:59:12 GMT
+recorded_with: VCR 2.9.2

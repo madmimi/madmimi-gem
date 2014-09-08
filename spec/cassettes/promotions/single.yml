@@ -1,0 +1,61 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.madmimi.com/promotions.xml
+    body:
+      encoding: US-ASCII
+      string: username=test%40example.com&api_key=TEST_API_KEY
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 07 Sep 2014 20:52:08 GMT
+      Content-Type:
+      - application/xml; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d69d9a914a457f6c3d406ac6a4487ca751410123127874; expires=Mon, 23-Dec-2019
+        23:50:00 GMT; path=/; domain=.madmimi.com; HttpOnly
+      - _mad_mimi=BAh7B0kiD3Nlc3Npb25faWQGOgZFVEkiJTM5NjA4M2IwZWQwY2M5NjJlNzI3YzJlZThhMTQwYWE5BjsAVEkiCmNydW1iBjsARkkiEC9wcm9tb3Rpb25zBjsAVA%3D%3D--de51c1a5c0af8aa52974067eeb58b3b3a3f02c6d;
+        domain=.madmimi.com; path=/; HttpOnly
+      - chrome_token=; domain=madmimi.com; path=/; expires=Thu, 01-Jan-1970 00:00:00
+        GMT
+      - non_eu=true; path=/
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - W/"17f98e3219868c084f3467f823881e3d"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - bfa3ef4273ffd98b403534d353378352
+      X-Rack-Cache:
+      - miss
+      Status:
+      - 200 OK
+      Vary:
+      - Accept-Encoding
+      P3p:
+      - CP="CAO PSA OUR"
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 1665c9cd3bf90479-FRA
+    body:
+      encoding: US-ASCII
+      string: ! "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<promotions>\n<promotion
+        name=\"API test\" id=\"5510034\" mimio=\"293145\" updated_at=\"2014-09-05
+        16:20:42 -0300\" hidden=\"false\" thumbnail=\"https://snaps.madmimi.com/v2/thumbs.php?size=b&amp;wait=120&amp;url=https%3A%2F%2Fmadmimi.com%2Fp%2F293145\">\n
+        \ <mailing id=\"122026332\" subject=\"API test\" count=\"1\">\n    <started_send>2014-09-05
+        16:26:32 -0300</started_send>\n    <finished_send>2014-09-05 16:26:34 -0300</finished_send>\n
+        \ </mailing>\n</promotion>\n</promotions>\n"
+    http_version: 
+  recorded_at: Sun, 07 Sep 2014 20:52:08 GMT
+recorded_with: VCR 2.9.2

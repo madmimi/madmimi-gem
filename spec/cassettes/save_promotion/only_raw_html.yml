@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://api.madmimi.com/promotions/save
+    body:
+      encoding: US-ASCII
+      string: username=test%40example.com&api_key=TEST_API_KEY&promotion_name=Test%20promotion&raw_html=%3Chtml%3E%3Cbody%3ETest%20%5B%5Btracking_beacon%5D%5D%5B%5Bopt_out%5D%5D%3C%2Fbody%3E%3C%2Fhtml%3E
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 08 Sep 2014 06:05:05 GMT
+      Content-Type:
+      - text/html; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=dac1306f205fc7bfa01864aed2af391091410156304599; expires=Mon, 23-Dec-2019
+        23:50:00 GMT; path=/; domain=.madmimi.com; HttpOnly
+      - _mad_mimi=BAh7B0kiD3Nlc3Npb25faWQGOgZFVEkiJWZkZThiMjA4MTQ3NDQyZjBlNDYwNjEyMTI3YzY5ZjRhBjsAVEkiCmNydW1iBjsARkkiEC9wcm9tb3Rpb25zBjsAVA%3D%3D--12b5a893fa6d140ec3c24d950942a66da0873dd9;
+        domain=.madmimi.com; path=/; HttpOnly
+      - chrome_token=; domain=madmimi.com; path=/; expires=Thu, 01-Jan-1970 00:00:00
+        GMT
+      - non_eu=true; path=/
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - W/"b9c77cc59179564f23d1f14c3857b80c"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - e4b90ce6f8b49c0b1df1f2b84521e4f4
+      X-Rack-Cache:
+      - invalidate, pass
+      Status:
+      - 200 OK
+      P3p:
+      - CP="CAO PSA OUR"
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 1668f3c7be4b0d79-SJC
+    body:
+      encoding: US-ASCII
+      string: Saved Test promotion (5516645)
+    http_version: 
+  recorded_at: Mon, 08 Sep 2014 06:05:05 GMT
+recorded_with: VCR 2.9.2

@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.madmimi.com/mailers/status/0
+    body:
+      encoding: US-ASCII
+      string: username=test%40example.com&api_key=TEST_API_KEY
+    headers: {}
+  response:
+    status:
+      code: 410
+      message: Gone
+    headers:
+      Server:
+      - cloudflare-nginx
+      Date:
+      - Mon, 08 Sep 2014 06:37:24 GMT
+      Content-Type:
+      - text/html
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d945709fc377c66ed8b3e16f62585223b1410158244090; expires=Mon, 23-Dec-2019
+        23:50:00 GMT; path=/; domain=.madmimi.com; HttpOnly
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Cache-Control:
+      - no-cache
+      X-Request-Id:
+      - 1514eef4e85a7db73d5ab70e07711f98
+      X-Rack-Cache:
+      - miss
+      Status:
+      - 410 Gone
+      P3p:
+      - CP="CAO PSA OUR"
+      Vary:
+      - Accept-Encoding
+      Cf-Ray:
+      - 1669231fe3ac0d79-SJC
+    body:
+      encoding: US-ASCII
+      string: Not Found
+    http_version: 
+  recorded_at: Mon, 08 Sep 2014 06:37:24 GMT
+recorded_with: VCR 2.9.2

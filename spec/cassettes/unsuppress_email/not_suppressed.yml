@@ -1,0 +1,99 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.madmimi.com/audience_members/test@example.com/is_suppressed
+    body:
+      encoding: US-ASCII
+      string: username=test%40example.com&api_key=TEST_API_KEY
+    headers: {}
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Date:
+      - Sun, 07 Sep 2014 19:36:16 GMT
+      Content-Type:
+      - text/html
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=de7b0fd6a8572507e9784fd91d3ab4d301410118576394; expires=Mon, 23-Dec-2019
+        23:50:00 GMT; path=/; domain=.madmimi.com; HttpOnly
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Cache-Control:
+      - no-cache
+      X-Request-Id:
+      - c70bd82e3ff8f045919a0b74a76a0796
+      X-Rack-Cache:
+      - miss
+      Status:
+      - 400 Bad Request
+      P3p:
+      - CP="CAO PSA OUR"
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 16655aae7bf3088d-FRA
+    body:
+      encoding: US-ASCII
+      string: test@example.com does not exist
+    http_version: 
+  recorded_at: Sun, 07 Sep 2014 19:36:16 GMT
+- request:
+    method: delete
+    uri: http://api.madmimi.com/suppressed_audience_members/test@example.com
+    body:
+      encoding: US-ASCII
+      string: username=test%40example.com&api_key=TEST_API_KEY
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 07 Sep 2014 19:38:07 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d9160596d278afe60a898e9999dd8da1a1410118687379; expires=Mon, 23-Dec-2019
+        23:50:00 GMT; path=/; domain=.madmimi.com; HttpOnly
+      - chrome_token=; domain=madmimi.com; path=/; expires=Thu, 01-Jan-1970 00:00:00
+        GMT
+      - non_eu=true; path=/
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - ! '"f8e0cbe09ccd742227c3dec96bb30b7d"'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - c041267b8bd9d33b2501c15633bc5e67
+      X-Rack-Cache:
+      - invalidate, pass
+      Status:
+      - 200 OK
+      P3p:
+      - CP="CAO PSA OUR"
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 16655d64109d0479-FRA
+    body:
+      encoding: US-ASCII
+      string: ! '{"success":false,"error":"undefined method `suppressed_lists'' for
+        nil:NilClass"}'
+    http_version: 
+  recorded_at: Sun, 07 Sep 2014 19:38:07 GMT
+recorded_with: VCR 2.9.2

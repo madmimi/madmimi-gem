@@ -1,0 +1,53 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.madmimi.com/mailer
+    body:
+      encoding: US-ASCII
+      string: username=test%40example.com&api_key=TEST_API_KEY&promotion_name=Transactional%20Promotion&from=maxim%2B1%40madmimi.com&subject=Test&recipient=Test%20Example%20%3Ctest%40example.com%3E&body=---%20%7B%7D%0A
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - cloudflare-nginx
+      Date:
+      - Mon, 08 Sep 2014 07:59:11 GMT
+      Content-Type:
+      - text/html
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d6930d904c178c15eff8d3510ac27686e1410163150890; expires=Mon, 23-Dec-2019
+        23:50:00 GMT; path=/; domain=.madmimi.com; HttpOnly
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - W/"8d366d236a4865d0f4b415b95b015122"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 75467d0322104bad84728086a2096581
+      X-Rack-Cache:
+      - invalidate, pass
+      Status:
+      - 200 OK
+      P3p:
+      - CP="CAO PSA OUR"
+      Vary:
+      - Accept-Encoding
+      Cf-Ray:
+      - 16699aec72c9088d-FRA
+    body:
+      encoding: US-ASCII
+      string: '10199221753095749276'
+    http_version: 
+  recorded_at: Mon, 08 Sep 2014 07:59:11 GMT
+recorded_with: VCR 2.9.2

@@ -10,8 +10,8 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
-  s.authors = ["Nicholas Young", "Marc Heiligers"]
-  s.date = "2014-09-05"
+  s.authors = ["Nicholas Young", "Marc Heiligers", "Maxim Gladkov"]
+  s.date = "2014-09-08"
   s.description = "Send emails, track statistics, and manage your subscriber base with ease."
   s.email = "nicholas@madmimi.com"
   s.extra_rdoc_files = [
@@ -25,13 +25,9 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "VERSION",
+    "config/paths.yml",
     "lib/madmimi.rb",
-    "madmimi.gemspec",
-    "test/fixtures/lists.xml",
-    "test/fixtures/promotions.xml",
-    "test/fixtures/search.xml",
-    "test/helper.rb",
-    "test/test_madmimi.rb"
+    "madmimi.gemspec"
   ]
   s.homepage = "http://github.com/madmimi/madmimi-gem"
   s.rubygems_version = "2.2.2"
@@ -42,35 +38,44 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<crack>, ["> 0.1.7"])
-      s.add_development_dependency(%q<jeweler>, ["> 1.4"])
-      s.add_development_dependency(%q<fakeweb>, ["> 1.2"])
-      s.add_development_dependency(%q<shoulda>, ["> 2.10"])
-      s.add_runtime_dependency(%q<crack>, ["> 0.1.7"])
       s.add_runtime_dependency(%q<httparty>, [">= 0.13.1"])
       s.add_development_dependency(%q<jeweler>, ["> 1.4"])
-      s.add_development_dependency(%q<fakeweb>, ["> 1.2"])
-      s.add_development_dependency(%q<shoulda>, ["> 2.10"])
+      s.add_development_dependency(%q<rspec>, [">= 0"])
+      s.add_development_dependency(%q<vcr>, [">= 0"])
+      s.add_development_dependency(%q<webmock>, [">= 0"])
+      s.add_runtime_dependency(%q<crack>, ["> 0.1.7"])
+      s.add_runtime_dependency(%q<httparty>, [">= 0.13.1"])
+      s.add_development_dependency(%q<rspec>, [">= 3.1.0"])
+      s.add_development_dependency(%q<vcr>, [">= 2.9.3"])
+      s.add_development_dependency(%q<webmock>, [">= 1.18.0"])
+      s.add_development_dependency(%q<jeweler>, ["> 1.4"])
     else
-      s.add_dependency(%q<crack>, ["> 0.1.7"])
-      s.add_dependency(%q<jeweler>, ["> 1.4"])
-      s.add_dependency(%q<fakeweb>, ["> 1.2"])
-      s.add_dependency(%q<shoulda>, ["> 2.10"])
       s.add_dependency(%q<crack>, ["> 0.1.7"])
       s.add_dependency(%q<httparty>, [">= 0.13.1"])
       s.add_dependency(%q<jeweler>, ["> 1.4"])
-      s.add_dependency(%q<fakeweb>, ["> 1.2"])
-      s.add_dependency(%q<shoulda>, ["> 2.10"])
+      s.add_dependency(%q<rspec>, [">= 0"])
+      s.add_dependency(%q<vcr>, [">= 0"])
+      s.add_dependency(%q<webmock>, [">= 0"])
+      s.add_dependency(%q<crack>, ["> 0.1.7"])
+      s.add_dependency(%q<httparty>, [">= 0.13.1"])
+      s.add_dependency(%q<rspec>, [">= 3.1.0"])
+      s.add_dependency(%q<vcr>, [">= 2.9.3"])
+      s.add_dependency(%q<webmock>, [">= 1.18.0"])
+      s.add_dependency(%q<jeweler>, ["> 1.4"])
     end
   else
     s.add_dependency(%q<crack>, ["> 0.1.7"])
-    s.add_dependency(%q<jeweler>, ["> 1.4"])
-    s.add_dependency(%q<fakeweb>, ["> 1.2"])
-    s.add_dependency(%q<shoulda>, ["> 2.10"])
-    s.add_dependency(%q<crack>, ["> 0.1.7"])
     s.add_dependency(%q<httparty>, [">= 0.13.1"])
     s.add_dependency(%q<jeweler>, ["> 1.4"])
-    s.add_dependency(%q<fakeweb>, ["> 1.2"])
-    s.add_dependency(%q<shoulda>, ["> 2.10"])
+    s.add_dependency(%q<rspec>, [">= 0"])
+    s.add_dependency(%q<vcr>, [">= 0"])
+    s.add_dependency(%q<webmock>, [">= 0"])
+    s.add_dependency(%q<crack>, ["> 0.1.7"])
+    s.add_dependency(%q<httparty>, [">= 0.13.1"])
+    s.add_dependency(%q<rspec>, [">= 3.1.0"])
+    s.add_dependency(%q<vcr>, [">= 2.9.3"])
+    s.add_dependency(%q<webmock>, [">= 1.18.0"])
+    s.add_dependency(%q<jeweler>, ["> 1.4"])
   end
 end
 

@@ -1,0 +1,76 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.madmimi.com/audience_members/search.xml
+    body:
+      encoding: US-ASCII
+      string: username=test%40example.com&api_key=TEST_API_KEY&raw=false&query=test
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 07 Sep 2014 20:05:11 GMT
+      Content-Type:
+      - application/xml; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d34a3f91f4605dfcf4b4aa7c6400fa0301410120310916; expires=Mon, 23-Dec-2019
+        23:50:00 GMT; path=/; domain=.madmimi.com; HttpOnly
+      - chrome_token=; domain=madmimi.com; path=/; expires=Thu, 01-Jan-1970 00:00:00
+        GMT
+      - non_eu=true; path=/
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - W/"e515adc7659722de0c0fedbbbc8dff68"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 822af838b50fb690e9dcfc10ca603ddd
+      X-Rack-Cache:
+      - miss
+      Status:
+      - 200 OK
+      P3p:
+      - CP="CAO PSA OUR"
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 1665850730f0088d-FRA
+    body:
+      encoding: US-ASCII
+      string: ! "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<audience>\n  <member
+        suppressed=\"false\">\n    <first_name>test2</first_name>\n    <last_name>csv2</last_name>\n
+        \   <email>csv_test2@example.com</email>\n    <created_at>2014-09-07 19:32:52
+        +0300</created_at>\n    <city/>\n    <phone/>\n    <company/>\n    <title/>\n
+        \   <address/>\n    <state/>\n    <zip/>\n    <country/>\n    <confirmed/>\n
+        \   <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n    <custom_value_2/>\n
+        \   <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name>test</first_name>\n    <last_name>csv</last_name>\n    <email>csv_test@example.com</email>\n
+        \   <created_at>2014-09-07 19:32:52 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n    </lists>\n  </member>\n  <member suppressed=\"false\">\n
+        \   <first_name/>\n    <last_name/>\n    <email>new_test2@example.com</email>\n
+        \   <created_at>2014-09-05 21:11:24 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company>Dummy Company</company>\n    <title/>\n    <address/>\n    <state/>\n
+        \   <zip/>\n    <country/>\n    <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n
+        \   <custom_value_1/>\n    <custom_value_2/>\n    <lists>\n    </lists>\n
+        \ </member>\n  <member suppressed=\"false\">\n    <first_name>New</first_name>\n
+        \   <last_name>Test</last_name>\n    <email>new_test@example.com</email>\n
+        \   <created_at>2014-09-05 21:10:19 +0300</created_at>\n    <city/>\n    <phone/>\n
+        \   <company/>\n    <title/>\n    <address/>\n    <state/>\n    <zip/>\n    <country/>\n
+        \   <confirmed/>\n    <custom_field_1/>\n    <custom_value/>\n    <custom_value_1/>\n
+        \   <custom_value_2/>\n    <lists>\n    </lists>\n  </member>\n</audience>\n"
+    http_version: 
+  recorded_at: Sun, 07 Sep 2014 20:05:10 GMT
+recorded_with: VCR 2.9.2
