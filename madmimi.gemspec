@@ -137,13 +137,6 @@ Gem::Specification.new do |s|
     s.specification_version = 4
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<activesupport>, [">= 0"])
-      s.add_runtime_dependency(%q<crack>, ["> 0.1.7"])
-      s.add_runtime_dependency(%q<httparty>, [">= 0.13.1"])
-      s.add_development_dependency(%q<jeweler>, ["> 1.4"])
-      s.add_development_dependency(%q<rspec>, [">= 0"])
-      s.add_development_dependency(%q<vcr>, [">= 0"])
-      s.add_development_dependency(%q<webmock>, [">= 0"])
       s.add_runtime_dependency(%q<activesupport>, ["> 3.0.0"])
       s.add_runtime_dependency(%q<crack>, ["> 0.1.7"])
       s.add_runtime_dependency(%q<httparty>, [">= 0.13.1"])
@@ -152,13 +145,6 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<webmock>, [">= 1.18.0"])
       s.add_development_dependency(%q<jeweler>, ["> 1.4"])
     else
-      s.add_dependency(%q<activesupport>, [">= 0"])
-      s.add_dependency(%q<crack>, ["> 0.1.7"])
-      s.add_dependency(%q<httparty>, [">= 0.13.1"])
-      s.add_dependency(%q<jeweler>, ["> 1.4"])
-      s.add_dependency(%q<rspec>, [">= 0"])
-      s.add_dependency(%q<vcr>, [">= 0"])
-      s.add_dependency(%q<webmock>, [">= 0"])
       s.add_dependency(%q<activesupport>, ["> 3.0.0"])
       s.add_dependency(%q<crack>, ["> 0.1.7"])
       s.add_dependency(%q<httparty>, [">= 0.13.1"])
@@ -168,13 +154,6 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<jeweler>, ["> 1.4"])
     end
   else
-    s.add_dependency(%q<activesupport>, [">= 0"])
-    s.add_dependency(%q<crack>, ["> 0.1.7"])
-    s.add_dependency(%q<httparty>, [">= 0.13.1"])
-    s.add_dependency(%q<jeweler>, ["> 1.4"])
-    s.add_dependency(%q<rspec>, [">= 0"])
-    s.add_dependency(%q<vcr>, [">= 0"])
-    s.add_dependency(%q<webmock>, [">= 0"])
     s.add_dependency(%q<activesupport>, ["> 3.0.0"])
     s.add_dependency(%q<crack>, ["> 0.1.7"])
     s.add_dependency(%q<httparty>, [">= 0.13.1"])
@@ -184,4 +163,3 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<jeweler>, ["> 1.4"])
   end
 end
-
