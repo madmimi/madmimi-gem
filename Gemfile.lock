@@ -84,7 +84,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activesupport
+  activesupport (> 3.0.0)
   crack (> 0.1.7)
   httparty (>= 0.13.1)
   jeweler (> 1.4)
