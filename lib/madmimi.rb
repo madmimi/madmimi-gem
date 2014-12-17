@@ -146,9 +146,12 @@ class MadMimi
     end
   end
 
-  def list_members(list_name)
+  def list_members(list_name, page = 1, per_page = 30)
     wrap_with_array('audience', 'member') do
-      do_request(path(:audience_list_members, :list => list_name), :get)
+      do_request(path(:audience_list_members, :list => list_name), :get, {
+        :page     => page,
+        :per_page => per_page
+      })
     end
   end
 
