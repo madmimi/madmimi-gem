@@ -1,6 +1,3 @@
-require 'bundler/setup'
-Bundler.setup
-
 require 'madmimi'
 require 'vcr'
 
