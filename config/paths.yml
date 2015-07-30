@@ -21,3 +21,5 @@
 :mailer_to_list:        /mailer/to_list
 :mailer_to_all:         /mailer/to_all
 :mailer_status:         /mailers/status/%{transaction_id}
+:audience_list_size:		/audience_lists/%{list}/list_size
+:audience_list_size_since:	/audience_lists/%{list}/list_size_since/%{date}
