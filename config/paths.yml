@@ -1,4 +1,4 @@
-:create_list:          		/audience_lists.json
+:create_list:          	  /audience_lists.json
 :remove_from_all_lists:		/audience_lists/remove_all
 :destroy_list:         		/audience_lists/%{list}
 :add_to_list:          		/audience_lists/%{list}/add
