@@ -534,6 +534,27 @@ describe MadMimi do
     end
   end
 
+  context '#list_size' do
+    subject { mad_mimi.list_size('list 1') }
+    
+    context 'when list exists', :vcr => { :cassette_name => 'list_size/list_exists' } do  
+
+      it 'returns an success message' do
+        expect(subject).to be_truthy
+      end
+    end
+  end
+
+  context '#list_size_since' do
+    subject { mad_mimi.list_size_since('list 1',1409512823) }
+
+    context 'when there are members', :vcr => { :cassette_name => 'list_size_since/list_members' } do
+      it 'returns a success response' do
+        expect(subject).to be_truthy
+      end
+    end
+  end
+
   context '#suppressed_since' do
     subject { mad_mimi.suppressed_since(1409512823) }
 

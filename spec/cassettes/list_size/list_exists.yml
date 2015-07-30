@@ -1,0 +1,46 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.madmimi.com/audience_lists/list%201/list_size
+    body:
+      encoding: UTF-8
+      string: username=test%40example.com&api_key=TEST_API_KEY
+    headers: {}
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Date:
+      - Thu, 30 Jul 2015 13:12:08 GMT
+      Content-Type:
+      - text/html; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d4542b816ea9a3523d05ac11b4f7f092b1438261928; expires=Fri, 29-Jul-16
+        13:12:08 GMT; path=/; domain=.madmimi.com; HttpOnly
+      - non_eu=true; path=/
+      Status:
+      - 401 Unauthorized
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Cache-Control:
+      - no-cache
+      X-Request-Id:
+      - c25c8d7d689170cc4a167481fb15df91
+      X-Rack-Cache:
+      - miss
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 20e1503a799515f8-JNB
+    body:
+      encoding: UTF-8
+      string: Unable to authenticate
+    http_version: 
+  recorded_at: Thu, 30 Jul 2015 13:12:08 GMT
+recorded_with: VCR 2.9.2

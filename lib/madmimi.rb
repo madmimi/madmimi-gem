@@ -155,6 +155,14 @@ class MadMimi
     end
   end
 
+  def list_size(list_name)
+      do_request(path(:audience_list_size, :list => list_name), :get)
+  end
+
+  def list_size_since(list_name, date)
+    do_request(path(:audience_list_size, :list => list_name, :date => date), :get)
+  end
+
   def suppressed_since(timestamp, show_suppression_reason = false)
     do_request(path(:suppressed_since, :timestamp => timestamp), :get, {
       :show_suppression_reason => show_suppression_reason
