@@ -1,4 +1,4 @@
-= madmimi
+= madmimi [![Build Status](https://travis-ci.org/madmimi/madmimi-gem.svg)](https://travis-ci.org/madmimi/madmimi-gem)
 
 The power of Mad Mimi in your Ruby application. Deliver emails, track statistics, and manage your subscriber base with ease.
 
@@ -63,6 +63,10 @@ You can set +verify_ssl+ to either true or false in initializer, if you wish ver
  mimi.list_members('Test List') # get audience members in specific list
 
  mimi.list_members('Test List', 2, 50) # get audience members on the 2nd page in specific list (50 members per page)
+
+ mimi.list_size('Test List') # get audience count in a specific list
+
+ mimi.list_size_since('Test List', 'unix timestamp') # get the count of audience members added to a specific list since a specified date
 
  mimi.suppressed?('dave@example.com') # check if audience member is suppressed
 
