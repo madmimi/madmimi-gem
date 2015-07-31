@@ -1,0 +1,7 @@
+language: ruby
+rvm:
+  - 2.1.0
+notifications:
+  campfire:
+    rooms:
+      - secure: "Dy/OtCgChcv+AS6zrPce4vvJGUJstUSi8eE2s5x6ruDy2ZTNSHo0ITGPRQPYuM75hlUxhJLvJLEsbG/llldl96wihq2q2KeSb20Pzuma+TVe9B4QYIjodrTeudmFrrgWV3IpuXnrwkZeZJywBFM5kXWRIvROCK7aRNKTBWzsI/Y="
