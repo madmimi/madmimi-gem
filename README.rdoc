@@ -1,4 +1,4 @@
-= madmimi [![Build Status](https://travis-ci.org/madmimi/madmimi-gem.svg)](https://travis-ci.org/madmimi/madmimi-gem)
+= madmimi {<img src="https://travis-ci.org/madmimi/madmimi-gem.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/madmimi/madmimi-gem]
 
 The power of Mad Mimi in your Ruby application. Deliver emails, track statistics, and manage your subscriber base with ease.
 
