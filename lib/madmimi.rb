@@ -33,6 +33,9 @@ require 'rubygems'
 require 'httparty'
 require 'csv'
 require 'yaml'
+if RUBY_VERSION != '1.8.7' && RUBY_VERSION < '2.2.0'
+  YAML::ENGINE.yamler = "syck"
+end
 require 'crack'
 
 class MadMimi
